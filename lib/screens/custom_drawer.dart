@@ -196,6 +196,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     await SharedPreferences.getInstance();
     sharedPreferences.clear();
     Navigator.pop(context);
+    Navigator.pop(context);
     Get.to(() => LoginScreen());
     Get.snackbar(
       "Bikezo.in",

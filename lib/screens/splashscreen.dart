@@ -16,11 +16,12 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   var finalNumber;
+  bool login=false;
   @override
   void initState() {
     getValidationData().whenComplete(() => {
           Timer(Duration(seconds: 4),
-              () => Get.off(finalNumber == null ? LoginScreen() : HomeScreen()))
+              () => Get.off(login  ? LoginScreen() : HomeScreen()))
         });
     initConnectivity();
     _connectivitySubscription =
@@ -68,8 +69,11 @@ class SplashScreenState extends State<SplashScreen> {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     var obtainedNumber = sharedPreferences.getString("MobileNumber");
+    var email = sharedPreferences.getString("email");
+
     setState(() {
       finalNumber = obtainedNumber;
+      login=email==null;
     });
   }
 

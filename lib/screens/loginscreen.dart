@@ -47,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
       final json = jsonDecode(jsonResponse);
       // final signinresponse = SigninResponse.fromJson(json);
       sharedPreferences.setString(Preferences.user_image, json["g_image"]);
+      sharedPreferences.setString(Preferences.qrimage, json["qrimage"]);
+
 
       if (json == "Invalid No") {
         Get.snackbar(
@@ -60,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
           forwardAnimationCurve: Curves.easeOutBack,
         );
       } else {
+        Navigator.pop(context);
         Get.to(() => OtpScreen());
       }
     } else {

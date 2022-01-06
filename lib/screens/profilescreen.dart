@@ -23,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  String? MobileNumber,image,email="",owner="";
+  String? MobileNumber,address="",image,qrimage,email="",owner="",userId="",l_owner="",l_address="";
   Future? profileData;
 
   @override
@@ -78,6 +78,9 @@ class ProfileScreenState extends State<ProfileScreen> {
     String? mobile = sharedPreferences.getString(Preferences.mobile);
     String? email = sharedPreferences.getString(Preferences.email);
     String? image = sharedPreferences.getString(Preferences.user_image);
+    String? qr = sharedPreferences.getString(Preferences.qrimage);
+    String? id = sharedPreferences.getString(Preferences.user_id);
+    String? address = sharedPreferences.getString(Preferences.address);
 
     // print(obtainedNumber);
     setState(() {
@@ -86,6 +89,9 @@ class ProfileScreenState extends State<ProfileScreen> {
       MobileNumber=mobile;
       this.email=email;
       this.image=image;
+      userId=id;
+      this.address;
+      qrimage=qr;
     });
   }
 
@@ -111,8 +117,36 @@ class ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+
+  Future updateProfile(String name,String address) async {
+    String url = "https://manyatechnosys.com/bikezo/editprofile.php";
+    var map = new Map<String, dynamic>();
+    map['mobile_no'] = MobileNumber;
+    map['g_name'] = name;
+    map['locality'] = address;
+    map['p_id'] = userId;
+    final SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    var res = await http.Client().post(Uri.parse(url), body: map);
+    print("status : ${res.body.toString()}");
+
+    if (res.statusCode == 200) {
+
+      sharedPreferences.setString(Preferences.user_name, name);
+      sharedPreferences.setString(Preferences.address, address);
+
+      // List<ProfileResponse> profile = json.map<ProfileResponse>((json) {
+      //   return ProfileResponse.fromJson(json);
+      // }).toList();
+      // return profile;
+    } else {
+      throw Exception("failed to load data");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getMobileNumber();
     return Scaffold(
         body: 
 
@@ -204,7 +238,77 @@ class ProfileScreenState extends State<ProfileScreen> {
               ),
 
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "Update Name",
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            const Text("Name :",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: TextField(
+
+                                keyboardType: TextInputType.text,
+                                onChanged: (txt){
+                                  l_owner=txt;
+
+
+                                },
+                                decoration: InputDecoration(
+                                  hintText: "Enter Name",
+                                  fillColor: Color(0xffE7E9EB),
+                                  filled: true,
+
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffE7E9EB))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffE7E9EB))),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            SizedBox(
+                              width: 130,
+                              child: ElevatedButton(
+                                onPressed: ()async {
+                                  setState(() {
+
+                                  });
+                                  updateProfile(l_owner!, address!).whenComplete(() {
+                                    Navigator.pop(context);
+                                  });
+
+                                },
+                                child: const Text("Update",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                    )),
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xff324759), // background
+                                  onPrimary: Colors.white, // foreground
+                                ),
+                              ),
+                            ),
+                          ],
+                        ));
+                  },
                   icon: Icon(
                     Icons.edit,
                     color: Color(0xff324A59),
@@ -219,7 +323,10 @@ class ProfileScreenState extends State<ProfileScreen> {
             children: [
               SizedBox(width: 12),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+
+                },
                 child: Icon(
                   Icons.call,
                   color: Color(0xff324A59),
@@ -353,7 +460,74 @@ class ProfileScreenState extends State<ProfileScreen> {
               ),
 
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "Update address ",
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            const Text("Address :",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: TextField(
+
+                                keyboardType: TextInputType.number,
+                                onChanged: (txt){
+l_address=txt;
+
+                                },
+                                decoration: InputDecoration(
+                                  hintText: "Enter Address",
+                                  fillColor: Color(0xffE7E9EB),
+                                  filled: true,
+
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffE7E9EB))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffE7E9EB))),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            SizedBox(
+                              width: 130,
+                              child: ElevatedButton(
+                                onPressed: ()async {
+                                 updateProfile(owner!, l_address!).whenComplete(() {
+                                   Navigator.pop(context);
+                                 });
+
+                                },
+                                child: const Text("Update",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                    )),
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xff324759), // background
+                                  onPrimary: Colors.white, // foreground
+                                ),
+                              ),
+                            ),
+                          ],
+                        ));
+
+                  },
                   icon: Icon(
                     Icons.edit,
                     color: Color(0xff324A59),
@@ -367,6 +541,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               width: 150,
               //color: Colors.yellow,
               child: Image.network(
+                  qrimage??
                   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1"),
             ),
           ),

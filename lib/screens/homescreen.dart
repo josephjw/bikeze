@@ -71,8 +71,8 @@ class HomeScreenState extends State<HomeScreen> {
     switch (result) {
       case ConnectivityResult.wifi:
       case ConnectivityResult.mobile:
-      case ConnectivityResult.none:
         _conec="${result.toString()}";
+        print("result"+_conec);
         // CommonDialogs.showGenericToast( 'Failed to get Internet  connectivity.', );
         break;
       default:
@@ -274,6 +274,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     initConnectivity();
+    getProfile();
     return Scaffold(
       backgroundColor: const Color(0XFFfbfafb),
       endDrawer: CustomDrawer(),

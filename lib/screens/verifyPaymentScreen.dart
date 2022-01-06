@@ -308,7 +308,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                       onPressed: ()async {
                         SharedPreferences sharedPreferences =
                         await SharedPreferences.getInstance();
-                         sharedPreferences.setBool(argumentData[6]['leadId']+"pay", true);
+                         sharedPreferences.setBool(argumentData[0]['leadId']+"pay", true);
                         Get.back();
 
 

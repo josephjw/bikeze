@@ -94,11 +94,11 @@ class _OtpScreenState extends State<OtpScreen> {
         sharedPreferences.setString(Preferences.email, json["email"]);
         sharedPreferences.setString(Preferences.mobile, json["mobile_no"]);
         sharedPreferences.setString(Preferences.user_name, json["owner_name"]);
-        sharedPreferences.setString(Preferences.address, json["city"]+json["city"]);
+        sharedPreferences.setString(Preferences.address, json["locality"]+json["city"]);
         sharedPreferences.setString(Preferences.user_id, json["p_id"]);
         // sharedPreferences.setString(Preferences.user_image, json["g_image"]);
 
-
+        Navigator.pop(context);
         Get.to(() => HomeScreen());
         Get.snackbar(
           "Bikezo.in",
