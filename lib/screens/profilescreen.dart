@@ -90,7 +90,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       this.email=email;
       this.image=image;
       userId=id;
-      this.address;
+      this.address=address;
       qrimage=qr;
     });
   }
@@ -449,7 +449,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                           fontFamily: 'Poppins',
                           color: Color(0XFFAAAAAA)),
                     ),
-                    Text("No.222, Koramagala,bangalore,560078",
+                    Text(address ?? "Garage Location",
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'Poppins',
@@ -482,7 +482,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               width: 200,
                               child: TextField(
 
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.text,
                                 onChanged: (txt){
 l_address=txt;
 

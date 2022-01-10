@@ -42,7 +42,8 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
   est_price= "",
   total= "",
   total_payable=" ",
-  status="";
+  status="",
+      qrimage="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1";
 
   Future getProfile() async {
     final SharedPreferences sharedPreferences =
@@ -56,6 +57,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
 
       userName= name!;
       userid=id!;
+
     });
   }
 
@@ -100,7 +102,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
         total=json['total'];
         total_payable=json['total_payable'];
         status=json['payment_status'];
-
+        qrimage=json['qrimage'];
       });
 
       }catch(e){
@@ -328,14 +330,14 @@ mainAxisAlignment: MainAxisAlignment.center,
                 const SizedBox(
                   height: 25,
                 ),
-
+                qrimage!=""?
                 Container(
-                  height: 120,
-                  width: 150,
+                  height: 180,
+                  width: 200,
                   //color: Colors.yellow,
                   child: Image.network(
-                      "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1"),
-                ),
+                      qrimage),
+                ):Container(),
                 Text(
                   "Scan & Pay now at",
                   style: TextStyle(

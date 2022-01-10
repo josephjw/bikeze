@@ -72,8 +72,8 @@ class _DetailScreenState extends State<DetailScreen> {
       verifypay=pay??false;
       userName= name!;
       userid=id!;
-      esti_status=estimation ??false;
-      this.upload=upload ?? false;
+      esti_status=estimation ??argumentData[8]['ebool'];
+      this.upload=upload ?? argumentData[9]['ibool'];
     });
   }
 bool esti_status = false,verifypay = false,upload = false;
@@ -91,10 +91,15 @@ bool esti_status = false,verifypay = false,upload = false;
     // });
     //  List<Asset> image = await MultiImagePicker.pickImages(
     //    maxImages: 10);
+  PermissionUtils().checkAndRequestPermission(context,
+        PERMISSION_TYPE.GALLERY,
+        true,
+        (val)async{
+          List<XFile>? image = await picker.pickMultiImage(maxHeight: 500, maxWidth: 500);
 
-     List<XFile>? image = await picker.pickMultiImage(maxHeight: 500, maxWidth: 500);
+          uploadToServer(null,image!);
+        });
 
-      uploadToServer(null,image!);
 
 
   }
@@ -308,7 +313,7 @@ if(photo!=null){
                                   width: 6,
                                 ),
                                 Text(
-                                  DateFormat('yyyy-MM-dd hh:mm:ss').parse( argumentData[7]['date']).toString(),
+                                  DateFormat('yyyy-MM-dd hh:mm').parse( argumentData[7]['date']).toString(),
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 12,
@@ -530,7 +535,9 @@ if(photo!=null){
               ),
               InkWell(
                 onTap: () {
-                  gt.Get.defaultDialog(
+    if( !upload){
+
+    gt.Get.defaultDialog(
                       title: "",
                       content: Center(
                           child: Row(
@@ -563,6 +570,7 @@ if(photo!=null){
                           ),
                         ],
                       )));
+    }
                 },
                 child: Center(
                   child: Container(
@@ -867,7 +875,7 @@ if(photo!=null){
                               color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w700))),
-                  dismissible: false,
+                  dismissible: true,
                   onChanged: (position) {
                     setState(() {
                       if (position == SlidableButtonPosition.right) {
@@ -1022,6 +1030,8 @@ if(photo!=null){
         });
         sharedPreferences.setBool(argumentData[6]['leadId']+"upload", true);
         loadder.close();
+        Navigator.pop(context);
+
         // mainBloc.add(PushInitial());
         //getTopicDiscussions();
       } else {

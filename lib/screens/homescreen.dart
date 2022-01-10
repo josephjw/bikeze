@@ -34,14 +34,19 @@ class HomeScreenState extends State<HomeScreen> {
 
   String date = DateFormat("dd-MM-yyyy").format(DateTime.now());
   var now = new DateTime.now();
-
+  Timer? timer,timer2;
+bool _loading=true,_loading2=true;
   @override
   void initState() {
     super.initState();
     getProfile();
     _firebaseMessaging= FirebaseMessaging.instance;
     firebaseCloudMessaging_Listeners();
-    initConnectivity();
+    leadOld();
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) { leadNew();});
+    timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) { leadOld();});
+
+    // initConnectivity();
   }
 
   late FirebaseMessaging _firebaseMessaging;
@@ -83,7 +88,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
 
-  Future<List<LeadResponse>> leadNew() async {
+  Future<bool> leadNew() async {
     String url = "https://manyatechnosys.com/bikezo/lead_management_new.php";
     var map = new Map<String, String>();
 
@@ -100,14 +105,19 @@ class HomeScreenState extends State<HomeScreen> {
       }).toList();
       setState(() {
         show= leads.length!=0;
+        _leads=leads;
+        _loading=false;
       });
-      return leads;
+      return true;
     } else {
       throw Exception('failed to load data');
     }
   }
 
-  Future<List<LeadResponse>> leadOld() async {
+  List<LeadResponse> _oleads =[];
+  List<LeadResponse> _leads =[];
+
+  Future<bool> leadOld() async {
     String url = "https://manyatechnosys.com/bikezo/lead_management_old.php";
     var map = new Map<String, String>();
 
@@ -122,7 +132,11 @@ class HomeScreenState extends State<HomeScreen> {
       List<LeadResponse> leads = json.map<LeadResponse>((json) {
         return LeadResponse.fromJson(json);
       }).toList();
-      return leads;
+      setState(() {
+        _oleads=leads;
+        _loading2=false;
+      });
+      return true;
     } else {
       throw Exception('failed to load data');
     }
@@ -133,7 +147,7 @@ class HomeScreenState extends State<HomeScreen> {
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
-    map['status'] = toggle?'1':'0';
+    map['status'] = toggle?'1':'2';
 
     var res = await http.Client().post(Uri.parse(url),body: map);
     if (res.statusCode == 200) {
@@ -152,7 +166,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   call() async {}
 
-  String userName = " ",userid='';
+  String userName = " ",userid='',image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1";
 
   Future getProfile() async {
     final SharedPreferences sharedPreferences =
@@ -160,18 +174,20 @@ class HomeScreenState extends State<HomeScreen> {
 
     String? name = sharedPreferences.getString(Preferences.user_name);
     String? id = sharedPreferences.getString(Preferences.user_id);
+    String? image = sharedPreferences.getString(Preferences.user_image);
 
     // print(obtainedNumber);
     setState(() {
 
       userName= name!;
       userid=id!;
+      this.image=image!;
     });
   }
 
   bool toggle =false,show=false;
 
-  final controller = Get.put(HomeController());
+  // final controller = Get.put(HomeController());
 
 
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -273,7 +289,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    initConnectivity();
+    // initConnectivity();
     getProfile();
     return Scaffold(
       backgroundColor: const Color(0XFFfbfafb),
@@ -283,9 +299,11 @@ class HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 30),
         Container(
           height: 100,
+          width:double.infinity,
+
           //color: Colors.green,
           padding: EdgeInsets.symmetric(horizontal: 10),
-          width: MediaQuery.of(context).size.width,
+          // width: MediaQuery.of(context).size.width,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -294,14 +312,16 @@ class HomeScreenState extends State<HomeScreen> {
                   onTap: () {
                     Get.to(() => ProfileScreen());
                   },
-                  child: const CircleAvatar(
+                  child:  CircleAvatar(
                     backgroundColor: Color(0xFF324A59),
                     radius: 22,
                     child: CircleAvatar(
                       backgroundColor: Color(0xff324A59),
                       radius: 19,
                       foregroundImage: NetworkImage(
-                          "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"),
+                        image
+                            // "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"
+                      ),
                     ),
                   ),
                 ),
@@ -328,15 +348,17 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
 
 
-                GetBuilder<HomeController>(
-                  builder: (_) => Switch(
-                    value: controller.isDark,
+                Switch(
+                    value: toggle,
                     onChanged: (state) {
                       setState(() {
                         if(!show) {
-                          controller.ChangeTheme(state);
+                          // controller.ChangeTheme(state);
                           toggle=!toggle;
                           dutyOn();
+                          if(!toggle){
+                            CommonDialogs.showGenericToast( 'You are in offline now..', );
+                          }
                         }else{
                           // toggle=!toggle;
                           CommonDialogs.showGenericToast( 'Please completed assigned task..', );
@@ -346,7 +368,7 @@ class HomeScreenState extends State<HomeScreen> {
                     activeColor: Colors.green,
                     hoverColor: Colors.white,
                   ),
-                ),
+
                 InkWell(
                   onTap: (){
                     _key.currentState!.openEndDrawer();
@@ -392,156 +414,181 @@ class HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold)),
-                    FutureBuilder(
-                      future: leadNew(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    // FutureBuilder(
+                    //   future: leadNew(),
+                    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    //
+                    //     if (snapshot.data==null) {
+                    //
+                    //       return Container(
+                    //           child: Center(child: CircularProgressIndicator()));
+                    //     }else{
+                    //     return
+                    //     }
+                    // //     else{
+                    // //     return Text("No Older Leads",
+                    // //     style: TextStyle(
+                    // // fontSize: 14,
+                    // // fontFamily: 'Poppins',
+                    // // color: Colors.white,
+                    // // fontWeight: FontWeight.bold));
+                    // //
+                    // // }
+                    //   }
+                    // ),
+                   _loading? Container(
+                        child: Center(child: CircularProgressIndicator())):
+               _leads.length==0?Center(
+                 child: Text(
+                     " No Leads are Found.",
+                     style: TextStyle(
+                       fontSize: 12,
+                       color: Colors.white,
+                       fontFamily: 'Poppins',
+                     )),
+               ):
+               ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        SizedBox(height: 10),
+                    shrinkWrap: true,
+                    reverse: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _leads.length,
+                    itemBuilder: (BuildContext context, index) {
 
-                        if (snapshot.data == null) {
-
-                          return Container(
-                              child: Center(child: CircularProgressIndicator()));
-                        }
-                        return ListView.separated(
-                            separatorBuilder: (BuildContext context, int index) =>
-                                SizedBox(height: 10),
-                            shrinkWrap: true,
-                            reverse: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, index) {
-
-                              return Center(
-                                  child: snapshot.data.length==0?Text("No Leads"): InkWell(
-                                onTap: () {
-                                  Get.to(() => DetailScreen(), arguments: [
-                                    {'name': snapshot.data[index].user_name},
-                                    {'package': snapshot.data[index].package},
-                                    {'vehicle': snapshot.data[index].vehicle},
-                                    {'remarks': snapshot.data[index].remarks},
-                                    {'location': snapshot.data[index].location},
-                                    {'mobile': snapshot.data[index].mobile_no},
-                                    {'leadId': snapshot.data[index].lead_id},
-                                    {'date': snapshot.data[index].booking_date}
+                      return Center(
+                          child: _leads.length==0?Text("No Leads"): InkWell(
+                            onTap: () {
+                              Get.to(() => DetailScreen(), arguments: [
+                                {'name': _leads[index].user_name},
+                                {'package': _leads[index].package},
+                                {'vehicle': _leads[index].vehicle},
+                                {'remarks': _leads[index].remarks},
+                                {'location': _leads[index].location},
+                                {'mobile': _leads[index].mobile_no},
+                                {'leadId': _leads[index].lead_id},
+                                {'date': _leads[index].booking_date},
+                                {'ebool': _leads[index].est_price_boolval},
+                                {'ibool': _leads[index].image_boolval}
 
 
 
-                                  ]);
-                                },
-                                child: Container(
-                                  height: 110,
-                                  width: double.infinity,
-                                  //   color: Colors.white,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: Column(
+
+                              ]);
+                            },
+                            child: Container(
+                              height: 110,
+                              width: double.infinity,
+                              //   color: Colors.white,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                   SizedBox(height: 6),
+                                  Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const SizedBox(height: 6),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "  ${snapshot.data[index].user_name}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xff324A59)),
-                                          ),
-                                          SizedBox(
-                                            width: 55,
-                                          ),
-                                          Text(
-                                            "${snapshot.data[index].booking_date}",
+                                      Text(
+                                        "  ${_leads[index].user_name}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xff324A59)),
+                                      ),
+                                      SizedBox(
+                                        width: 55,
+                                      ),
+                                      Text(
+                                        "${_leads[index].booking_date}",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 1,
+                                      )
+                                    ],
+                                  ),
+                                   SizedBox(height: 2),
+                                   Text("   General Service",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Poppins',
+                                      )),
+                                   SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                      "   Package Selected:  \u{20B9} ${_leads[index].package}",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Poppins',
+                                      )),
+                                   SizedBox(height: 2),
+                                  Row(
+                                    //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          padding:
+                                          EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                          height: 25,
+                                          width: 140,
+                                          //  color: Colors.yellow,
+                                          child: Text(
+                                            "   ${_leads[index].vehicle}",
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: 'Poppins',
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: 1,
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 2),
-                                      const Text("   General Service",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Poppins',
-                                          )),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                          "   Package Selected:  \u{20B9} ${snapshot.data[index].package}",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Poppins',
-                                          )),
-                                      const SizedBox(height: 2),
-                                      Row(
-                                          //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                              height: 25,
-                                              width: 140,
-                                              //  color: Colors.yellow,
-                                              child: Text(
-                                                "   ${snapshot.data[index].vehicle}",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: 'Poppins',
-                                                ),
+                                        ),
+                                         SizedBox(
+                                          width: 35,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              20, 2, 1, 1),
+                                          child: SizedBox(
+                                            height: 30,
+                                            // width: 130,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                String number =
+                                                    '${_leads[index].mobile_no}';
+                                                FlutterPhoneDirectCaller
+                                                    .callNumber(number);
+                                              },
+                                              child:  Text("CALL NOW",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins',
+                                                  )),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:  Color(
+                                                    0xff324759), // background
+                                                onPrimary: Colors
+                                                    .white, // foreground
                                               ),
                                             ),
-                                            const SizedBox(
-                                              width: 35,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  20, 2, 1, 1),
-                                              child: SizedBox(
-                                                height: 30,
-                                                // width: 130,
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    String number =
-                                                        '${snapshot.data[index].mobile_no}';
-                                                    FlutterPhoneDirectCaller
-                                                        .callNumber(number);
-                                                  },
-                                                  child: const Text("CALL NOW",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: 'Poppins',
-                                                      )),
-                                                  style: ElevatedButton.styleFrom(
-                                                    primary: const Color(
-                                                        0xff324759), // background
-                                                    onPrimary: Colors
-                                                        .white, // foreground
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 0.5,
-                                            )
-                                          ]),
-                                      const SizedBox(height: 4)
-                                    ],
-                                  ),
-                                ),
-                              ));
-                            });
-                      },
-                    ),
+                                          ),
+                                        ),
+                                         SizedBox(
+                                          width: 0.5,
+                                        )
+                                      ]),
+                                   SizedBox(height: 4)
+                                ],
+                              ),
+                            ),
+                          ));
+                    }),
                     SizedBox(
                       height: 20,
                     ),
@@ -553,151 +600,188 @@ class HomeScreenState extends State<HomeScreen> {
                             fontFamily: 'Poppins',
                             color: Colors.white,
                             fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 10),
-                    FutureBuilder(
-                      future: leadOld(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.data == null) {
-                          return Container(
-                              child: Center(child: CircularProgressIndicator()));
-                        }
-                        return ListView.separated(
-                            separatorBuilder: (BuildContext context, int index) =>
-                                SizedBox(height: 10),
-                            shrinkWrap: true,
-                            // reverse: true,
-                            physics: NeverScrollableScrollPhysics(),
 
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, index) {
-                              if (snapshot.data[index].booking_date != date) {
-                                return Center(
-                                    child: InkWell(
-                                  onTap: () {
-                                    // Get.to(() => DetailScreen(), arguments: [
-                                    //   {'name': snapshot.data[index].user_name},
-                                    //   {'package': snapshot.data[index].package},
-                                    //   {'vehicle': snapshot.data[index].vehicle},
-                                    //   {'remarks': snapshot.data[index].remarks},
-                                    //   {'leadId': snapshot.data[index].lead_id}
-                                    // ]);
-                                  },
-                                  child: Container(
-                                    height: 110,
-                                    width: 340,
-                                    //   color: Colors.white,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(12)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(height: 6),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "  ${snapshot.data[index].user_name}",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xff324A59)),
-                                            ),
-                                            SizedBox(
-                                              width: 55,
-                                            ),
-                                            Text(
-                                              "${snapshot.data[index].booking_date}",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'Poppins',
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 1,
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 2),
-                                        const Text("   General Service",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'Poppins',
-                                            )),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                            "   Package Selected:  \u{20B9} ${snapshot.data[index].package}",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'Poppins',
-                                            )),
-                                        const SizedBox(height: 2),
-                                        Row(
-                                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0, 5, 0, 0),
-                                                height: 25,
-                                                width: 140,
-                                                //  color: Colors.yellow,
-                                                child: Text(
-                                                  "   ${snapshot.data[index].vehicle}",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 35,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    20, 2, 1, 1),
-                                                child: SizedBox(
-                                                  height: 30,
-                                                  width: 130,
-                                                  child: ElevatedButton(
-                                                    onPressed: () {},
-                                                    child: const Text(
-                                                        "LEAD CLOSED",
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontFamily: 'Poppins',
-                                                        )),
-                                                    style:
-                                                        ElevatedButton.styleFrom(
-                                                      primary: const Color(
-                                                          0xff324759), // background
-                                                      onPrimary: Colors
-                                                          .white, // foreground
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 0.5,
-                                              )
-                                            ]),
-                                        const SizedBox(height: 4)
-                                      ],
+              //     if (snapshot.hasError)
+              //   return Text('Error: ${snapshot.error}');
+              // else
+              // return
+                    _loading2?
+                      Container(
+                      child: Center(child: CircularProgressIndicator())):
+
+                    _oleads.length==0?Center(
+                      child: Text(
+                          " No Leads are Found.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                          )),
+                    ):
+                    ListView.separated(
+              separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(height: 10),
+            shrinkWrap: true,
+            // reverse: true,
+            physics: NeverScrollableScrollPhysics(),
+
+            itemCount: _oleads.length,
+            itemBuilder: (BuildContext context, index) {
+              // if (      _oleads[index].booking_date != date
+              // ) {
+                return Center(
+                    child: InkWell(
+                      onTap: () {
+                        // Get.to(() => DetailScreen(), arguments: [
+                        //   {'name': _oleads[index].user_name},
+                        //   {'package': _oleads[index].package},
+                        //   {'vehicle': _oleads[index].vehicle},
+                        //   {'remarks': _oleads[index].remarks},
+                        //   {'location': _oleads[index].location},
+                        //   {'mobile': _oleads[index].mobile_no},
+                        //   {'leadId': _oleads[index].lead_id},
+                        //   {'date': _oleads[index].booking_date},
+                        //   {'ebool': _oleads[index].est_price_boolval},
+                        //   {'ibool': _oleads[index].image_boolval}
+                        // ]);
+                      },
+                      child: Container(
+                        height: 110,
+                        width: 340,
+                        //   color: Colors.white,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Column(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 6),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "  ${_oleads[index].user_name}",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff324A59)),
+                                ),
+                                SizedBox(
+                                  width: 55,
+                                ),
+                                Text(
+                                  "${_oleads[index].booking_date}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 1,
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 2),
+                            const Text("   General Service",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                                "   Package Selected:  \u{20B9} ${_oleads[index].package}",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                )),
+                            const SizedBox(height: 2),
+                            Row(
+                              //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.fromLTRB(
+                                        0, 5, 0, 0),
+                                    height: 25,
+                                    width: 140,
+                                    //  color: Colors.yellow,
+                                    child: Text(
+                                      "   ${_oleads[index].vehicle}",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Poppins',
+                                      ),
                                     ),
                                   ),
-                                ));
-                              } else {
-                                return SizedBox.shrink();
-                              }
-                            });
-                      },
-                    ),
+                                  const SizedBox(
+                                    width: 35,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        10, 2, 10, 1),
+                                    child: SizedBox(
+                                      height: 30,
+                                      width: 130,
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text(
+                                            "LEAD CLOSED",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Poppins',
+                                            )),
+                                        style:
+                                        ElevatedButton.styleFrom(
+                                          primary: const Color(
+                                              0xff324759), // background
+                                          onPrimary: Colors
+                                              .white, // foreground
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 0.5,
+                                  )
+                                ]),
+                            const SizedBox(height: 4)
+                          ],
+                        ),
+                      ),
+                    ));
+              // }
+              // else {
+              //   return SizedBox.shrink();
+              // }
+            }),
+                    const SizedBox(height: 10),
+
+      // return Text('Result: ${snapshot.data}');
+
+
+      // FutureBuilder(
+                    //   future: leadOld(),
+                    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    //
+                    //     // if (!snapshot.connectionState.) {
+                    //     //   return Container(
+                    //     //   child: Center(child: CircularProgressIndicator()));
+                    //     // }
+                    //     switch (snapshot.connectionState) {
+                    //       case ConnectionState.waiting: return Container(
+                    //           child: Center(child: CircularProgressIndicator()));;
+                    //       default:
+                    //
+                    //     }
+                    //   },
+                    //
+                    // ),
                   ],
                 ),
               ),
