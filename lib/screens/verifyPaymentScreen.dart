@@ -43,7 +43,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
   total= "",
   total_payable=" ",
   status="",
-      qrimage="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1";
+       qrimage="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1";
 
   Future getProfile() async {
     final SharedPreferences sharedPreferences =
@@ -110,7 +110,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
 
       }
       // userid
-      print(jsonResponse);
+      print("veri response"+jsonResponse);
     _loading=true;
     } else {
       throw Exception('failed to load data');
