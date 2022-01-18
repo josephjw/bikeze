@@ -16,17 +16,75 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  final String number;
+  const OtpScreen({Key? key,required this.number}) : super(key: key);
 
   @override
-  _OtpScreenState createState() => _OtpScreenState();
+  _OtpScreenState createState() => _OtpScreenState(number: number);
 }
 
 class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otpNumber = TextEditingController();
   String? OTPPIN,_fcm;
   SharedPreferenceHelper pref =SharedPreferenceHelper() ;
+  final String number;
+  _OtpScreenState({required this.number});
+  SignIn(String number) async {
 
+    setState(() {
+      _loading=true;
+    });
+    String url = "https://manyatechnosys.com/bikezo/mobile_verification.php";
+    var map = new Map<String, String>();
+
+    map['mobile'] = '${number}';
+    final SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    sharedPreferences.setString("MobileNumber", number);
+    var res = await http.Client().post(Uri.parse(url), body: map);
+    print(res);
+    if (res.statusCode == 200) {
+      print("status code : ${res.statusCode}");
+      var jsonResponse = res.body;
+      print(jsonResponse);
+      final json = jsonDecode(jsonResponse);
+      // final signinresponse = SigninResponse.fromJson(json);
+      sharedPreferences.setString(Preferences.user_image, json["g_image"]);
+      sharedPreferences.setString(Preferences.qrimage, json["qrimage"]);
+
+
+      if (json == "Invalid No") {
+        Get.snackbar(
+          "Bikezo",
+          "Invalid number",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF324A59),
+          colorText: Colors.white,
+          isDismissible: true,
+          // dismissDirection: SnackDismissDirection.HORIZONTAL,
+          forwardAnimationCurve: Curves.easeOutBack,
+        );
+      }
+      // else {
+      //   Navigator.pop(context);
+      //   Get.to(() => OtpScreen());
+      // }
+    } else {
+      Get.snackbar(
+        "Bikezo.in",
+        "Invalid Number",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF324A59),
+        colorText: Colors.white,
+        isDismissible: true,
+        // dismissDirection: SnackDismissDirection.HORIZONTAL,
+        forwardAnimationCurve: Curves.easeOutBack,
+      );
+    }
+    setState(() {
+      _loading=false;
+    });
+  }
 
 
   late Timer _timer;
@@ -258,14 +316,37 @@ class _OtpScreenState extends State<OtpScreen> {
             const SizedBox(
               height: 20,
             ),
+            (_start!=0)?
             Text(
-              "Resend in 00:$_start",
+              "Resend in 00:${_start.toString().padLeft(2,'0')}",
               style: TextStyle(
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
                   fontSize: 15),
+            ):
+            GestureDetector(
+              onTap: (){
+                SignIn(number);
+                setState(() {
+                  _start=30;
+                });
+                startTimer();
+              },
+              child: Container(
+                child: Text(
+                  "Resend OTP",
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 15,
+                    decoration: TextDecoration.underline
+                  ),
+                ),
+              ),
             ),
+
             const SizedBox(
               height: 90,
             ),

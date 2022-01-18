@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bikezopartner/screens/homescreen.dart';
 import 'package:bikezopartner/screens/loginscreen.dart';
+import 'package:bikezopartner/theme/style.dart';
 import 'package:bikezopartner/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -95,6 +96,7 @@ class SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.fill,
               ),
               decoration: BoxDecoration(
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),

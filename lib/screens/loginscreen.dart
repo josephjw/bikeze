@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         Navigator.pop(context);
-        Get.to(() => OtpScreen());
+        Get.to(() => OtpScreen(number: number,));
       }
     } else {
       Get.snackbar(

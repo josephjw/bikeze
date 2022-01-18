@@ -357,7 +357,10 @@ bool _loading=true,_loading2=true;
                           toggle=!toggle;
                           dutyOn();
                           if(!toggle){
-                            CommonDialogs.showGenericToast( 'You are in offline now..', );
+                            CommonDialogs.showGenericToast( 'You are offline now.', );
+                          }
+                          else{
+                            CommonDialogs.showGenericToast( 'You are online now.', );
                           }
                         }else{
                           // toggle=!toggle;
@@ -632,18 +635,18 @@ bool _loading=true,_loading2=true;
                 return Center(
                     child: InkWell(
                       onTap: () {
-                        // Get.to(() => DetailScreen(), arguments: [
-                        //   {'name': _oleads[index].user_name},
-                        //   {'package': _oleads[index].package},
-                        //   {'vehicle': _oleads[index].vehicle},
-                        //   {'remarks': _oleads[index].remarks},
-                        //   {'location': _oleads[index].location},
-                        //   {'mobile': _oleads[index].mobile_no},
-                        //   {'leadId': _oleads[index].lead_id},
-                        //   {'date': _oleads[index].booking_date},
-                        //   {'ebool': _oleads[index].est_price_boolval},
-                        //   {'ibool': _oleads[index].image_boolval}
-                        // ]);
+                        Get.to(() => DetailScreen(), arguments: [
+                          {'name': _oleads[index].user_name},
+                          {'package': _oleads[index].package},
+                          {'vehicle': _oleads[index].vehicle},
+                          {'remarks': _oleads[index].remarks},
+                          {'location': _oleads[index].location},
+                          {'mobile': _oleads[index].mobile_no},
+                          {'leadId': _oleads[index].lead_id},
+                          {'date': _oleads[index].booking_date},
+                          {'ebool': _oleads[index].est_price_boolval},
+                          {'ibool': _oleads[index].image_boolval}
+                        ]);
                       },
                       child: Container(
                         height: 110,
@@ -722,26 +725,28 @@ bool _loading=true,_loading2=true;
                                   const SizedBox(
                                     width: 35,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(
-                                        10, 2, 10, 1),
-                                    child: SizedBox(
-                                      height: 30,
-                                      width: 130,
-                                      child: ElevatedButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                            "LEAD CLOSED",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Poppins',
-                                            )),
-                                        style:
-                                        ElevatedButton.styleFrom(
-                                          primary: const Color(
-                                              0xff324759), // background
-                                          onPrimary: Colors
-                                              .white, // foreground
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          10, 2, 10, 1),
+                                      child: SizedBox(
+                                        height: 30,
+                                        width: 130,
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          child: const Text(
+                                              "LEAD CLOSED",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Poppins',
+                                              )),
+                                          style:
+                                          ElevatedButton.styleFrom(
+                                            primary: const Color(
+                                                0xff324759), // background
+                                            onPrimary: Colors
+                                                .white, // foreground
+                                          ),
                                         ),
                                       ),
                                     ),
