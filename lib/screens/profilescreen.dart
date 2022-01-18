@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bikezopartner/models/profileresponse.dart';
 import 'package:bikezopartner/preference/Constants.dart';
 import 'package:bikezopartner/screens/loginscreen.dart';
+import 'package:bikezopartner/theme/style.dart';
 import 'package:bikezopartner/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,12 +33,12 @@ class ProfileScreenState extends State<ProfileScreen> {
       userId = "",
       l_owner = "",
       l_address = "";
-  Future? profileData;
+ ProfileResponse profileData=ProfileResponse();
 
   @override
   void initState() {
     getMobileNumber().whenComplete(() {
-      profileData = fetchProfile(MobileNumber!);
+      profileData = fetchProfile(MobileNumber!) as ProfileResponse;
     });
     initConnectivity();
     super.initState();
@@ -106,7 +107,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  Future<List<ProfileResponse>> fetchProfile(String mobile) async {
+  Future<ProfileResponse> fetchProfile(String mobile) async {
     String url = "https://manyatechnosys.com/bikezo/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
@@ -122,7 +123,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       List<ProfileResponse> profile = json.map<ProfileResponse>((json) {
         return ProfileResponse.fromJson(json);
       }).toList();
-      return profile;
+      return profile[0];
     } else {
       throw Exception("failed to load data");
     }
@@ -191,7 +192,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               height: 120,
               width: 300,
               child: Image.network(
-                image ??
+                profileData.image?? image ??
                     "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2016%2F01%2F290880-orange-BMW-car-German_car-BMW_M3_GTS.jpg&f=1&nofb=1",
                 fit: BoxFit.fill,
               ),
@@ -234,7 +235,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color(0XFFAAAAAA)),
                       ),
-                      Text("${owner}",
+                      Text("${ profileData.g_name ?? owner}",
                           style: TextStyle(
                               fontSize: 15,
                               fontFamily: 'Poppins',
@@ -352,7 +353,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontFamily: 'Poppins',
                             color: Color(0XFFAAAAAA)),
                       ),
-                      Text("+91 ${MobileNumber}",
+                      Text("+91 ${profileData.mobile_no ?? MobileNumber}",
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -398,7 +399,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontFamily: 'Poppins',
                             color: Color(0XFFAAAAAA)),
                       ),
-                      Text("${email}",
+                      Text("${profileData.email ?? email}",
                           style: TextStyle(
                               fontSize: 15,
                               fontFamily: 'Poppins',
@@ -444,7 +445,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontFamily: 'Poppins',
                             color: Color(0XFFAAAAAA)),
                       ),
-                      Text(address ?? "Garage Location",
+                      Text(profileData.locality?? address ?? "Garage Location",
                           style: TextStyle(
                               fontSize: 15,
                               fontFamily: 'Poppins',
@@ -554,10 +555,57 @@ class ProfileScreenState extends State<ProfileScreen> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  final SharedPreferences sharedPreferences =
-                      await SharedPreferences.getInstance();
-                  sharedPreferences.remove("MobileNumber");
-                  Get.off(() => LoginScreen());
+
+                  Get.defaultDialog(
+                    title: "Are You Sure?",
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                logout();
+                                CommonDialogs.showGenericToast( 'You have successfully logged out.', );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: HexColor('#181D2D')),
+                              child: const Text("YES",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14)),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: HexColor('#181D2D'),
+                              ),
+                              child: const Text("NO",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  );
+                  // final SharedPreferences sharedPreferences =
+                  //     await SharedPreferences.getInstance();
+                  // sharedPreferences.remove("MobileNumber");
+                  // Get.off(() => LoginScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   primary: const Color(0xff324759), // background
@@ -575,4 +623,24 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         ));
   }
+
+  Future logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Get.to(() => LoginScreen());
+    Get.snackbar(
+      "Bikezo.in",
+      "Successfully Signed Out",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: const Color(0xFF324A59),
+      colorText: Colors.white,
+      isDismissible: true,
+      // dismissDirection: SnackDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.easeOutBack,
+    );
+  }
+
+
 }

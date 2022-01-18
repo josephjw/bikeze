@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bikezopartner/models/profileresponse.dart';
 import 'package:bikezopartner/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
@@ -36,15 +37,20 @@ class HomeScreenState extends State<HomeScreen> {
   var now = new DateTime.now();
   Timer? timer,timer2;
 bool _loading=true,_loading2=true;
+  ProfileResponse profileData=ProfileResponse();
+
   @override
   void initState() {
     super.initState();
-    getProfile();
+    getProfile().whenComplete(() {
+      profileData = fetchProfile(mobile) as ProfileResponse;
+    });
     _firebaseMessaging= FirebaseMessaging.instance;
     firebaseCloudMessaging_Listeners();
+    lead_count();
     leadOld();
     timer = Timer.periodic(Duration(seconds: 3), (Timer t) { leadNew();});
-    timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) { leadOld();});
+    timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) { leadOld(); profileData = fetchProfile(mobile) as ProfileResponse;});
 
     // initConnectivity();
   }
@@ -162,11 +168,33 @@ bool _loading=true,_loading2=true;
     }
   }
 
+  Future<void> lead_count() async {
+    String url = "https://manyatechnosys.com/bikezo/lead_count.php";
+    var map = new Map<String, String>();
+
+    map['p_id'] = userid;
+
+    var res = await http.Client().post(Uri.parse(url),body: map);
+    if (res.statusCode == 200) {
+      print("status : ${res.statusCode}");
+      var jsonResponse = res.body;
+      final json = jsonDecode(jsonResponse);
+      setState(() {
+        leadcnt=json['lead_count'];
+
+      });
+      print(jsonResponse);
+
+    } else {
+      throw Exception('failed to load data');
+    }
+  }
+
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   call() async {}
 
-  String userName = " ",userid='',image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1";
+  String leadcnt='',mobile="",userName = " ",userid='',image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1";
 
   Future getProfile() async {
     final SharedPreferences sharedPreferences =
@@ -175,6 +203,7 @@ bool _loading=true,_loading2=true;
     String? name = sharedPreferences.getString(Preferences.user_name);
     String? id = sharedPreferences.getString(Preferences.user_id);
     String? image = sharedPreferences.getString(Preferences.user_image);
+    String? mob = sharedPreferences.getString(Preferences.mobile);
 
     // print(obtainedNumber);
     setState(() {
@@ -182,6 +211,7 @@ bool _loading=true,_loading2=true;
       userName= name!;
       userid=id!;
       this.image=image!;
+      mobile=mob!;
     });
   }
 
@@ -213,6 +243,28 @@ bool _loading=true,_loading2=true;
   }
   late AndroidNotificationChannel channel;
 
+
+  Future<ProfileResponse> fetchProfile(String mobile) async {
+    String url = "https://manyatechnosys.com/bikezo/profile_partner.php";
+    var map = new Map<String, dynamic>();
+    map['mobile'] = mobile;
+
+    var res = await http.Client().post(Uri.parse(url), body: map);
+
+    if (res.statusCode == 200) {
+      print("status : ${res.statusCode}");
+      var jsonResponse = res.body;
+      print(jsonResponse);
+      var json = jsonDecode(jsonResponse);
+      print(json);
+      List<ProfileResponse> profile = json.map<ProfileResponse>((json) {
+        return ProfileResponse.fromJson(json);
+      }).toList();
+      return profile[0];
+    } else {
+      throw Exception("failed to load data");
+    }
+  }
   void firebaseCloudMessaging_Listeners() {
     // if (Platform.isIOS) iOS_Permission();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -319,7 +371,7 @@ bool _loading=true,_loading2=true;
                       backgroundColor: Color(0xff324A59),
                       radius: 19,
                       foregroundImage: NetworkImage(
-                        image
+                          profileData.image?? image
                             // "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"
                       ),
                     ),
@@ -404,12 +456,25 @@ bool _loading=true,_loading2=true;
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const SizedBox(height: 26),
-                    const Text("LEAD MANAGEMENT",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold)),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: const Text("LEAD MANAGEMENT",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        Text("Count : $leadcnt",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold))
+
+                      ],
+                    ),
                     const SizedBox(height: 30),
                      Text("${DateFormat('MMM').format(DateTime(0, now.month)) .toString()} ${now.year.toString()}",
                         style: TextStyle(

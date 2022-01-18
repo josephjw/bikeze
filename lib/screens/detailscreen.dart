@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:bikezopartner/permissions/permission_utils.dart';
+import 'package:bikezopartner/theme/style.dart';
 import 'package:bikezopartner/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:bikezopartner/preference/Constants.dart';
@@ -682,18 +684,67 @@ if(photo!=null){
                             width: 130,
                             child: ElevatedButton(
                               onPressed: ()async {
-                                esti_status=false;
-                                SharedPreferences sharedPreferences =
-                                await SharedPreferences.getInstance();
+                                Get.defaultDialog(
+                                  title: "Are You Sure?",
+                                  content: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 1,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () async{
+                                              esti_status=false;
+                                              SharedPreferences sharedPreferences =
+                                                  await SharedPreferences.getInstance();
 
-                                await estimationPrice().whenComplete(() {
-                                  setState(() {
-                                    esti_status=true;
-                                  });
-                                  sharedPreferences.setBool(argumentData[6]['leadId']+"estimation", true);
+                                              await estimationPrice().whenComplete(() {
+                                                setState(() {
+                                                  esti_status=true;
+                                                });
+                                                sharedPreferences.setBool(argumentData[6]['leadId']+"estimation", true);
 
-                                });
-                                Navigator.pop(context);
+                                              });
+                                              Get.back();
+                                              Navigator.pop(context);
+                                              CommonDialogs.showGenericToast( 'You have successfully updated price.', );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                                primary: HexColor('#181D2D')),
+                                            child: const Text("YES",
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 14)),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Get.back();
+                                              Navigator.pop(context);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: HexColor('#181D2D'),
+                                            ),
+                                            child: const Text("NO",
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 14)),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                );
+
+
 
                               },
                               child: const Text("UPDATE PRICE",
@@ -864,6 +915,7 @@ if(photo!=null){
                   width: double.infinity,
                   height: 50,
                   buttonWidth: 10.0,
+
                   border: Border.all(color: const Color(0xff324759)),
                   label: const Icon(Icons.arrow_forward),
                   buttonColor: Colors.white,
@@ -924,6 +976,14 @@ if(photo!=null){
                                     ],
                                   ),
                                 ));});
+                          CommonDialogs.showGenericToast( 'Lead successfully completed.', );
+                          Future.delayed(const Duration(milliseconds: 3000), () {
+
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+
+                          });
+
                         }else{
                           gt.Get.snackbar(
                             "Bikezo.in",
