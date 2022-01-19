@@ -1,7 +1,3 @@
-import 'package:bikezopartner/screens/detailscreen.dart';
-import 'package:bikezopartner/screens/homescreen.dart';
-import 'package:bikezopartner/screens/otpscreen.dart';
-import 'package:bikezopartner/screens/profilescreen.dart';
 import 'package:bikezopartner/screens/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

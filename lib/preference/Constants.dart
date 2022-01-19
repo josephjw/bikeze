@@ -14,6 +14,7 @@ class Preferences {
   static const String auth_token = "auth_token";
   static const String address = "address";
   static const String qrimage = "qrimage";
+  static const String status = "status";
 
   static const String user_image = "user_image";
   static const String profile_updated = "profile_updated";

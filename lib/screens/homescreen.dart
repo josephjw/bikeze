@@ -44,12 +44,12 @@ bool _loading=true,_loading2=true;
     super.initState();
     getProfile().whenComplete(() {
       profileData = fetchProfile(mobile) as ProfileResponse;
+      lead_count();
     });
     _firebaseMessaging= FirebaseMessaging.instance;
     firebaseCloudMessaging_Listeners();
-    lead_count();
     leadOld();
-    timer = Timer.periodic(Duration(seconds: 3), (Timer t) { leadNew();});
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) { leadNew();    lead_count();});
     timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) { leadOld(); profileData = fetchProfile(mobile) as ProfileResponse;});
 
     // initConnectivity();
@@ -204,6 +204,7 @@ bool _loading=true,_loading2=true;
     String? id = sharedPreferences.getString(Preferences.user_id);
     String? image = sharedPreferences.getString(Preferences.user_image);
     String? mob = sharedPreferences.getString(Preferences.mobile);
+    bool? status = sharedPreferences.getBool(Preferences.status);
 
     // print(obtainedNumber);
     setState(() {
@@ -212,6 +213,7 @@ bool _loading=true,_loading2=true;
       userid=id!;
       this.image=image!;
       mobile=mob!;
+      toggle=status!;
     });
   }
 
@@ -402,7 +404,9 @@ bool _loading=true,_loading2=true;
 
                 Switch(
                     value: toggle,
-                    onChanged: (state) {
+                    onChanged: (state) async{
+                      final SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
                       setState(() {
                         if(!show) {
                           // controller.ChangeTheme(state);
@@ -414,6 +418,7 @@ bool _loading=true,_loading2=true;
                           else{
                             CommonDialogs.showGenericToast( 'You are online now.', );
                           }
+                          sharedPreferences.setBool(Preferences.status, toggle);
                         }else{
                           // toggle=!toggle;
                           CommonDialogs.showGenericToast( 'Please completed assigned task..', );
@@ -700,18 +705,18 @@ bool _loading=true,_loading2=true;
                 return Center(
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => DetailScreen(), arguments: [
-                          {'name': _oleads[index].user_name},
-                          {'package': _oleads[index].package},
-                          {'vehicle': _oleads[index].vehicle},
-                          {'remarks': _oleads[index].remarks},
-                          {'location': _oleads[index].location},
-                          {'mobile': _oleads[index].mobile_no},
-                          {'leadId': _oleads[index].lead_id},
-                          {'date': _oleads[index].booking_date},
-                          {'ebool': _oleads[index].est_price_boolval},
-                          {'ibool': _oleads[index].image_boolval}
-                        ]);
+                        // Get.to(() => DetailScreen(), arguments: [
+                        //   {'name': _oleads[index].user_name},
+                        //   {'package': _oleads[index].package},
+                        //   {'vehicle': _oleads[index].vehicle},
+                        //   {'remarks': _oleads[index].remarks},
+                        //   {'location': _oleads[index].location},
+                        //   {'mobile': _oleads[index].mobile_no},
+                        //   {'leadId': _oleads[index].lead_id},
+                        //   {'date': _oleads[index].booking_date},
+                        //   {'ebool': _oleads[index].est_price_boolval},
+                        //   {'ibool': _oleads[index].image_boolval}
+                        // ]);
                       },
                       child: Container(
                         height: 110,
