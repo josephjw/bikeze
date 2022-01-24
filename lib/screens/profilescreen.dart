@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:bikezopartner/models/profileresponse.dart';
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/screens/loginscreen.dart';
-import 'package:bikezopartner/screens/privacyPolicyScreen.dart';
-import 'package:bikezopartner/theme/style.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/models/profileresponse.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/screens/privacyPolicyScreen.dart';
+import 'package:bikezee/theme/style.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +12,11 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+import 'loginscreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -109,7 +108,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikezee/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 
@@ -131,7 +130,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future updateProfile(String name, String address) async {
-    String url = "https://manyatechnosys.com/bikezee/editprofile.php";
+    String url = "https://manyatechnosys.com/bikeze/editprofile.php";
     var map = new Map<String, dynamic>();
     map['mobile_no'] = MobileNumber;
     map['g_name'] = name;

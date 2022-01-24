@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/preference/shared_preference_helper.dart';
-import 'package:bikezopartner/screens/homescreen.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/preference/shared_preference_helper.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +12,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'homescreen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String number;
@@ -34,7 +34,7 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikezee/mobile_verification.php";
+    String url = "https://manyatechnosys.com/bikeze/mobile_verification.php";
     var map = new Map<String, String>();
 
     map['mobile'] = '${number}';
@@ -123,7 +123,7 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikezee/otp_verification.php";
+    String url = "https://manyatechnosys.com/bikeze/otp_verification.php";
     var map = Map<String, dynamic>();
     final SharedPreferences sharedPreferences =
     await SharedPreferences.getInstance();

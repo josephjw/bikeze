@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
-import 'package:bikezopartner/permissions/permission_utils.dart';
-import 'package:bikezopartner/theme/style.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/permissions/permission_utils.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/screens/verifyPaymentScreen.dart';
+import 'package:bikezee/theme/style.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -11,9 +13,6 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:slide_to_act/slide_to_act.dart';
-
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/screens/verifyPaymentScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -29,8 +28,6 @@ import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-
-import 'package:bikezopartner/screens/profilescreen.dart';
 
 class DetailScreen extends StatefulWidget {
 
