@@ -681,121 +681,121 @@ bool _loading=true,_loading2=true;
                             ),
                           ));
                     }),
-                    Container(
-                      height: 110,
-                      width: double.infinity,
-                      //   color: Colors.white,
-                      decoration: BoxDecoration(
-                          color: HexColor('#64676E'),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 6),
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "  user_name}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 55,
-                              ),
-                              Text(
-                                "booking_date}",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 1,
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 2),
-                          Text("   General Service",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white
-                              )),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                              "   Package Selected:  \u{20B9}package}",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white
-                              )),
-                          SizedBox(height: 2),
-                          Row(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  padding:
-                                  EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                  height: 25,
-                                  width: 140,
-                                  //  color: Colors.yellow,
-                                  child: Text(
-                                    "   vehicle",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 35,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      20, 2, 1, 1),
-                                  child: SizedBox(
-                                    height: 30,
-                                    // width: 130,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        String number =
-                                            'mobile_no}';
-                                        FlutterPhoneDirectCaller
-                                            .callNumber(number);
-                                      },
-                                      child:  Text("CALL NOW",
-                                          style: TextStyle(
-                                            color: Color(
-                                                0xff324759),
-                                            fontFamily: 'Poppins',
-                                          )),
-                                      style: ElevatedButton.styleFrom(
-                                        primary:  Colors.white,// background
-                                        onPrimary: Colors
-                                            .white, // foreground
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 0.5,
-                                )
-                              ]),
-                          SizedBox(height: 4)
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   height: 110,
+                    //   width: double.infinity,
+                    //   //   color: Colors.white,
+                    //   decoration: BoxDecoration(
+                    //       color: HexColor('#64676E'),
+                    //       borderRadius: BorderRadius.circular(12)),
+                    //   child: Column(
+                    //     mainAxisAlignment:
+                    //     MainAxisAlignment.spaceEvenly,
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       SizedBox(height: 6),
+                    //       Row(
+                    //         mainAxisAlignment:
+                    //         MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text(
+                    //             "  user_name}",
+                    //             style: TextStyle(
+                    //                 fontSize: 18,
+                    //                 fontFamily: 'Poppins',
+                    //                 fontWeight: FontWeight.bold,
+                    //                 color: Colors.white),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 55,
+                    //           ),
+                    //           Text(
+                    //             "booking_date}",
+                    //             style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white,
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 1,
+                    //           )
+                    //         ],
+                    //       ),
+                    //       SizedBox(height: 2),
+                    //       Text("   General Service",
+                    //           style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white
+                    //           )),
+                    //       SizedBox(
+                    //         height: 4,
+                    //       ),
+                    //       Text(
+                    //           "   Package Selected:  \u{20B9}package}",
+                    //           style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white
+                    //           )),
+                    //       SizedBox(height: 2),
+                    //       Row(
+                    //         //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               padding:
+                    //               EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    //               height: 25,
+                    //               width: 140,
+                    //               //  color: Colors.yellow,
+                    //               child: Text(
+                    //                 "   vehicle",
+                    //                 style: TextStyle(
+                    //                     fontSize: 12,
+                    //                     fontFamily: 'Poppins',
+                    //                     color: Colors.white
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 35,
+                    //             ),
+                    //             Padding(
+                    //               padding: EdgeInsets.fromLTRB(
+                    //                   20, 2, 1, 1),
+                    //               child: SizedBox(
+                    //                 height: 30,
+                    //                 // width: 130,
+                    //                 child: ElevatedButton(
+                    //                   onPressed: () {
+                    //                     String number =
+                    //                         'mobile_no}';
+                    //                     FlutterPhoneDirectCaller
+                    //                         .callNumber(number);
+                    //                   },
+                    //                   child:  Text("CALL NOW",
+                    //                       style: TextStyle(
+                    //                         color: Color(
+                    //                             0xff324759),
+                    //                         fontFamily: 'Poppins',
+                    //                       )),
+                    //                   style: ElevatedButton.styleFrom(
+                    //                     primary:  Colors.white,// background
+                    //                     onPrimary: Colors
+                    //                         .white, // foreground
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 0.5,
+                    //             )
+                    //           ]),
+                    //       SizedBox(height: 4)
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
