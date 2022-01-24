@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
+import 'package:slide_to_act/slide_to_act.dart';
 
 import 'package:bikezopartner/preference/Constants.dart';
 import 'package:bikezopartner/screens/verifyPaymentScreen.dart';
@@ -154,7 +155,7 @@ if(photo!=null){
   }
 
   Future<void> completePayment() async {
-    String url = "https://manyatechnosys.com/bikezo/complete_lead.php";
+    String url = "https://manyatechnosys.com/bikeze/complete_lead.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -174,7 +175,7 @@ if(photo!=null){
   }
 
   Future<void> estimationPrice() async {
-    String url = "https://manyatechnosys.com/bikezo/estimation_price.php";
+    String url = "https://manyatechnosys.com/bikeze/estimation_price.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -315,7 +316,7 @@ if(photo!=null){
                                   width: 6,
                                 ),
                                 Text(
-                                  DateFormat('yyyy-MM-dd hh:mm').parse( argumentData[7]['date']).toString(),
+                                  argumentData[7]['date'],
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 12,
@@ -842,7 +843,7 @@ if(photo!=null){
                   ]);
                 }else{
                     gt.Get.snackbar(
-                      "Bikezo.in",
+                      "bikeze.in",
                       " Please Provide Estimation price.",
                       snackPosition: gt.SnackPosition.BOTTOM,
                       backgroundColor: const Color(0xFF324A59),
@@ -910,16 +911,15 @@ if(photo!=null){
                 ),
               ),
               const SizedBox(height: 20),
-              Center(
-                child: SlidableButton(
-                  width: double.infinity,
-                  height: 50,
-                  buttonWidth: 10.0,
 
-                  border: Border.all(color: const Color(0xff324759)),
-                  label: const Icon(Icons.arrow_forward),
-                  buttonColor: Colors.white,
-                  color: const Color(0xff324759),
+                Center(
+                  child: SlideAction(
+                  innerColor:Colors.white,
+                  height: 50,
+                  key: _key,
+                  outerColor:const Color(0xff324759) ,
+                  sliderButtonIconSize: 16,
+                  reversed: false,
                   child: const Center(
                       child: Text("SWIPE TO FINISH",
                           style: TextStyle(
@@ -927,83 +927,175 @@ if(photo!=null){
                               color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w700))),
-                  dismissible: true,
-                  onChanged: (position) {
-                    setState(() {
-                      if (position == SlidableButtonPosition.right) {
-                        if(esti_status&&verifypay){
+                  onSubmit: (){
+                      if(esti_status&&verifypay){
 
-                          completePayment().whenComplete(() {
-                            gt.Get.defaultDialog(
-                                title: "",
-                                content: Container(
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            gt.Get.back();
-                                          },
-                                          child: const Icon(Icons.close_rounded,size: 30,),
-                                          style: ElevatedButton.styleFrom(
-                                            onPrimary: Colors.black,
-                                            primary: Colors.white54,
-                                            shape: const CircleBorder(),
-                                            padding: const EdgeInsets.all(5),
-                                          ),
+                        completePayment().whenComplete(() {
+                          gt.Get.defaultDialog(
+                              title: "Lead Completed",
+                              content: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          gt.Get.back();
+                                        },
+                                        child: const Icon(Icons.close_rounded,size: 30,),
+                                        style: ElevatedButton.styleFrom(
+                                          onPrimary: Colors.black,
+                                          primary: Colors.white54,
+                                          shape: const CircleBorder(),
+                                          padding: const EdgeInsets.all(5),
                                         ),
                                       ),
-                                      Container(
-                                        height: 200,
-                                        width: 200,
-                                        child: Image.asset(
-                                            'assets/images/greentick.png'),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(50)),
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                        "Successfully Completed",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                ));});
-                          CommonDialogs.showGenericToast( 'Lead successfully completed.', );
-                          Future.delayed(const Duration(milliseconds: 3000), () {
+                                    ),
+                                    Container(
+                                      height: 70,
+                                      width: 70,
+                                      child: Image.asset(
+                                          'assets/images/greentick.png'),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50)),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Successfully Completed",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ));});
+                        CommonDialogs.showGenericToast( 'Lead successfully completed.', );
+                        Future.delayed(const Duration(milliseconds: 3000), () {
 
-                            Navigator.pop(context);
-                            Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
 
-                          });
+                        });
 
-                        }else{
-                          gt.Get.snackbar(
-                            "Bikezo.in",
-                            " Please Fill all.",
-                            snackPosition: gt.SnackPosition.BOTTOM,
-                            backgroundColor: const Color(0xFF324A59),
-                            colorText: Colors.white,
-                            isDismissible: true,
-                            // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
-                            forwardAnimationCurve: Curves.easeOutBack,
-                          );
-                        }
-
-
-
+                      }else{
+                        gt.Get.snackbar(
+                          "bikeze.in",
+                          " Please Fill all.",
+                          snackPosition: gt.SnackPosition.BOTTOM,
+                          backgroundColor: const Color(0xFF324A59),
+                          colorText: Colors.white,
+                          isDismissible: true,
+                          // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
+                          forwardAnimationCurve: Curves.easeOutBack,
+                        );
+                        _key.currentState?.reset();
                       }
-                    });
                   },
-                ),
+
               ),
+                ),
+              // Center(
+              //   child: SlidableButton(
+              //     width: double.infinity,
+              //     height: 50,
+              //     buttonWidth: 10.0,
+              //     key: _key,
+              //
+              //     border: Border.all(color: const Color(0xff324759)),
+              //     label: const Icon(Icons.arrow_forward),
+              //     buttonColor: Colors.white,
+              //     color: const Color(0xff324759),
+              //     child: const Center(
+              //         child: Text("SWIPE TO FINISH",
+              //             style: TextStyle(
+              //                 fontFamily: 'Poppins',
+              //                 color: Colors.white,
+              //                 fontSize: 15,
+              //                 fontWeight: FontWeight.w700))),
+              //     dismissible: true,
+              //     onChanged: (position) {
+              //       setState(() {
+              //         if (position == SlidableButtonPosition.right) {
+              //           if(esti_status&&verifypay){
+              //
+              //             completePayment().whenComplete(() {
+              //               gt.Get.defaultDialog(
+              //                   title: "",
+              //                   content: Container(
+              //                     child: Column(
+              //                       children: [
+              //                         Align(
+              //                           alignment: Alignment.topRight,
+              //                           child: TextButton(
+              //                             onPressed: () {
+              //                               Navigator.pop(context);
+              //                               gt.Get.back();
+              //                             },
+              //                             child: const Icon(Icons.close_rounded,size: 30,),
+              //                             style: ElevatedButton.styleFrom(
+              //                               onPrimary: Colors.black,
+              //                               primary: Colors.white54,
+              //                               shape: const CircleBorder(),
+              //                               padding: const EdgeInsets.all(5),
+              //                             ),
+              //                           ),
+              //                         ),
+              //                         Container(
+              //                           height: 200,
+              //                           width: 200,
+              //                           child: Image.asset(
+              //                               'assets/images/greentick.png'),
+              //                           decoration: BoxDecoration(
+              //                               borderRadius: BorderRadius.circular(50)),
+              //                         ),
+              //                         SizedBox(
+              //                           height: 15,
+              //                         ),
+              //                         Text(
+              //                           "Successfully Completed",
+              //                           style: TextStyle(
+              //                               fontSize: 20,
+              //                               fontFamily: 'Poppins',
+              //                               fontWeight: FontWeight.bold),
+              //                         )
+              //                       ],
+              //                     ),
+              //                   ));});
+              //             CommonDialogs.showGenericToast( 'Lead successfully completed.', );
+              //             Future.delayed(const Duration(milliseconds: 3000), () {
+              //
+              //               Navigator.pop(context);
+              //               Navigator.pop(context);
+              //
+              //             });
+              //
+              //           }else{
+              //             gt.Get.snackbar(
+              //               "bikeze.in",
+              //               " Please Fill all.",
+              //               snackPosition: gt.SnackPosition.BOTTOM,
+              //               backgroundColor: const Color(0xFF324A59),
+              //               colorText: Colors.white,
+              //               isDismissible: true,
+              //               // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
+              //               forwardAnimationCurve: Curves.easeOutBack,
+              //             );
+              //             _key.currentState?.reset();
+              //
+              //           }
+              //
+              //
+              //
+              //         }
+              //       });
+              //     },
+              //   ),
+              // ),
               const SizedBox(
                 height: 20,
               ),
@@ -1014,6 +1106,7 @@ if(photo!=null){
     );
   }
   // AnimationController _cont =AnimationController(vsync: vsync)
+  final GlobalKey<SlideActionState> _key = GlobalKey();
 
   void onSearchTextChanged(String text) {
   setState(() {
@@ -1059,7 +1152,7 @@ if(photo!=null){
 
     try {
       String path =
-          "https://manyatechnosys.com/bikezo/checkin_mimage.php";
+          "https://manyatechnosys.com/bikeze/checkin_mimage.php";
 
       print("upload path: $path");
 

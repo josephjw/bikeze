@@ -80,7 +80,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
   }
 
   Future<void> paymentVerify() async {
-    String url = "https://manyatechnosys.com/bikezo/verify_payment.php";
+    String url = "https://manyatechnosys.com/bikeze/verify_payment.php";
     var map = new Map<String, String>();
 
     map['lead_id'] =  argumentData[0]["leadId"]?? "5" ;

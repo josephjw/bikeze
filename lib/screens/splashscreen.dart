@@ -108,7 +108,7 @@ class SplashScreenState extends State<SplashScreen> {
           //   child: Column(
           //     children: [
           //       const Text(
-          //         "BIKEZO.IN",
+          //         "bikeze.IN",
           //         style: TextStyle(
           //             color: Colors.white,
           //             fontSize: 30,

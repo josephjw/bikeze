@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikezo/mobile_verification.php";
+    String url = "https://manyatechnosys.com/bikeze/mobile_verification.php";
     var map = new Map<String, String>();
 
     map['mobile'] = '${number}';
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (json == "Invalid No") {
         Get.snackbar(
-          "Bikezo",
+          "bikeze",
           "Invalid number",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       Get.snackbar(
-        "Bikezo.in",
+        "bikeze.in",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           if (mobNumber.text.isEmpty) {
                             Get.snackbar(
-                              "Bikezo.in",
+                              "bikeze.in",
                               "Please Enter Mob Number",
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: const Color(0xFF324A59),
@@ -279,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.grey,
                               fontFamily: 'Poppins',
                               fontSize: 16)),
-                      Text("partner@bikezo.in",
+                      Text("partner@bikeze.in",
                           style: TextStyle(
                               color: Color(0xFF3F9AD8),
                               fontFamily: 'Poppins',

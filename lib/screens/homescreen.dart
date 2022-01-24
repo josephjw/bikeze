@@ -95,7 +95,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<bool> leadNew() async {
-    String url = "https://manyatechnosys.com/bikezo/lead_management_new.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_management_new.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -124,7 +124,7 @@ bool _loading=true,_loading2=true;
   List<LeadResponse> _leads =[];
 
   Future<bool> leadOld() async {
-    String url = "https://manyatechnosys.com/bikezo/lead_management_old.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_management_old.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -149,7 +149,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> dutyOn() async {
-    String url = "https://manyatechnosys.com/bikezo/online_offline_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/online_offline_partner.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -169,7 +169,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> lead_count() async {
-    String url = "https://manyatechnosys.com/bikezo/lead_count.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_count.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -247,7 +247,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikezo/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 
@@ -267,6 +267,8 @@ bool _loading=true,_loading2=true;
       throw Exception("failed to load data");
     }
   }
+
+
   void firebaseCloudMessaging_Listeners() {
     // if (Platform.isIOS) iOS_Permission();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -347,7 +349,7 @@ bool _loading=true,_loading2=true;
     getProfile();
     return Scaffold(
       backgroundColor: const Color(0XFFfbfafb),
-      endDrawer: CustomDrawer(),
+      // endDrawer: CustomDrawer(),
       key: _key,
       body: Column(children: <Widget>[
         const SizedBox(height: 30),
@@ -393,7 +395,7 @@ bool _loading=true,_loading2=true;
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins',
-                          fontSize: 20,
+                          fontSize: 16,
                           color: Color(0xFF324A59),
                         ),
                       ),
@@ -402,42 +404,58 @@ bool _loading=true,_loading2=true;
                 ),
 
 
-                Switch(
-                    value: toggle,
-                    onChanged: (state) async{
-                      final SharedPreferences sharedPreferences =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        if(!show) {
-                          // controller.ChangeTheme(state);
-                          toggle=!toggle;
-                          dutyOn();
-                          if(!toggle){
-                            CommonDialogs.showGenericToast( 'You are offline now.', );
-                          }
-                          else{
-                            CommonDialogs.showGenericToast( 'You are online now.', );
-                          }
-                          sharedPreferences.setBool(Preferences.status, toggle);
-                        }else{
-                          // toggle=!toggle;
-                          CommonDialogs.showGenericToast( 'Please completed assigned task..', );
-                        }
-                      });
-                    },
-                    activeColor: Colors.green,
-                    hoverColor: Colors.white,
-                  ),
+                Row(
+                  children: [
 
-                InkWell(
-                  onTap: (){
-                    _key.currentState!.openEndDrawer();
-                    // Scaffold.of(context).openDrawer();
-                  },
-                  child: const Icon(
-                    Icons.menu,
-                  ),
-                )
+                    Text(
+                      "OFFLINE" ,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                        fontSize: 11,
+                        color: Color(0xFF324A59),
+                      ),
+                    ),
+                    Switch(
+                        value: toggle,
+                        onChanged: (state) async{
+                          final SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          setState(() {
+                            if(!show) {
+                              // controller.ChangeTheme(state);
+                              toggle=!toggle;
+                              dutyOn();
+                              if(!toggle){
+                                CommonDialogs.showGenericToast( 'You are offline now.', );
+                              }
+                              else{
+                                CommonDialogs.showGenericToast( 'You are online now.', );
+                              }
+                              sharedPreferences.setBool(Preferences.status, toggle);
+                            }else{
+                              // toggle=!toggle;
+                              CommonDialogs.showGenericToast( 'Please completed assigned task..', );
+                            }
+                          });
+                        },
+                        activeColor: Colors.green,
+                        hoverColor: Colors.white,
+                      ),
+
+                    Text(
+                      "ONLINE" ,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                        fontSize: 11,
+                        color: Color(0xFF324A59),
+                      ),
+                    ),
+                  ],
+                ),
+
+
               ]),
         ),
         const SizedBox(height: 15),
@@ -471,7 +489,7 @@ bool _loading=true,_loading2=true;
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold)),
                         ),
-                        Text("Count : $leadcnt",
+                        Text("Today Leads : $leadcnt",
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,

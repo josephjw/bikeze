@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:856546086046:android:1a86db8cffec4ae707bf8f",
+        "android_client_info": {
+          "package_name": "com.bikezeepartner.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856546086046-tp1cf90gjbhdr283cd84g05l3j91i8o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC92MUM5_xN_oIK6Rc1-FBfLVRKj_webPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856546086046-tp1cf90gjbhdr283cd84g05l3j91i8o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:856546086046:android:fee92a8a643ec77207bf8f",
         "android_client_info": {
           "package_name": "com.bikezopartner.com"

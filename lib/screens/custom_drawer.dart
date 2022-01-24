@@ -248,7 +248,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     Navigator.pop(context);
     Get.to(() => LoginScreen());
     Get.snackbar(
-      "Bikezo.in",
+      "bikeze.in",
       "Successfully Signed Out",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: const Color(0xFF324A59),

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bikezopartner/models/profileresponse.dart';
 import 'package:bikezopartner/preference/Constants.dart';
 import 'package:bikezopartner/screens/loginscreen.dart';
+import 'package:bikezopartner/screens/privacyPolicyScreen.dart';
 import 'package:bikezopartner/theme/style.dart';
 import 'package:bikezopartner/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
@@ -108,7 +109,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikezo/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 
@@ -130,7 +131,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future updateProfile(String name, String address) async {
-    String url = "https://manyatechnosys.com/bikezo/editprofile.php";
+    String url = "https://manyatechnosys.com/bikeze/editprofile.php";
     var map = new Map<String, dynamic>();
     map['mobile_no'] = MobileNumber;
     map['g_name'] = name;
@@ -544,7 +545,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   fontSize: 12),
             ),
             Text(
-              "BIKEZO.IN Private Limited",
+              "bikeze.IN Private Limited",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
@@ -599,6 +600,141 @@ class ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(
                           height: 10,
                         ),
+
+
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'OTHER SETTINGS:',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => PrivacyPolScreen(),arguments: {
+                              {'type': "terms"},
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(width: 12),
+                              TextButton(
+                                onPressed: () {},
+                                child: Icon(
+                                  Icons.room_service,
+                                  color: Color(0xff324A59),
+                                  size: 20,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  onPrimary: Color(0xff324A59),
+                                  primary: Colors.white54,
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(5),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "TERMS & CONDITION",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff324A59),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Get.to(() => PrivacyPolScreen(),arguments: {
+                              {'type': "policy"},
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(width: 12),
+                              TextButton(
+                                onPressed: () {},
+                                child: Icon(
+                                  Icons.contact_phone,
+                                  color: Color(0xff324A59),
+                                  size: 20,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  onPrimary: Color(0xff324A59),
+                                  primary: Colors.white54,
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(5),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "PRIVACY POLICY ",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff324A59),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 12),
+                            TextButton(
+                              onPressed: () {},
+                              child: Icon(
+                                Icons.info_outlined,
+                                color: Color(0xff324A59),
+                                size: 20,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                onPrimary: Color(0xff324A59),
+                                primary: Colors.white54,
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(5),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "About Us",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff324A59)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   );
@@ -631,7 +767,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     Navigator.pop(context);
     Get.to(() => LoginScreen());
     Get.snackbar(
-      "Bikezo.in",
+      "bikeze.in",
       "Successfully Signed Out",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: const Color(0xFF324A59),
