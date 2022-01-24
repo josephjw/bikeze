@@ -95,7 +95,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<bool> leadNew() async {
-    String url = "https://manyatechnosys.com/bikeze/lead_management_new.php";
+    String url = "https://manyatechnosys.com/bikezee/lead_management_new.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -124,7 +124,7 @@ bool _loading=true,_loading2=true;
   List<LeadResponse> _leads =[];
 
   Future<bool> leadOld() async {
-    String url = "https://manyatechnosys.com/bikeze/lead_management_old.php";
+    String url = "https://manyatechnosys.com/bikezee/lead_management_old.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -149,7 +149,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> dutyOn() async {
-    String url = "https://manyatechnosys.com/bikeze/online_offline_partner.php";
+    String url = "https://manyatechnosys.com/bikezee/online_offline_partner.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -169,7 +169,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> lead_count() async {
-    String url = "https://manyatechnosys.com/bikeze/lead_count.php";
+    String url = "https://manyatechnosys.com/bikezee/lead_count.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -247,7 +247,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikezee/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 

@@ -155,7 +155,7 @@ if(photo!=null){
   }
 
   Future<void> completePayment() async {
-    String url = "https://manyatechnosys.com/bikeze/complete_lead.php";
+    String url = "https://manyatechnosys.com/bikezee/complete_lead.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -175,7 +175,7 @@ if(photo!=null){
   }
 
   Future<void> estimationPrice() async {
-    String url = "https://manyatechnosys.com/bikeze/estimation_price.php";
+    String url = "https://manyatechnosys.com/bikezee/estimation_price.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -843,7 +843,7 @@ if(photo!=null){
                   ]);
                 }else{
                     gt.Get.snackbar(
-                      "bikeze.in",
+                      "bikezee.in",
                       " Please Provide Estimation price.",
                       snackPosition: gt.SnackPosition.BOTTOM,
                       backgroundColor: const Color(0xFF324A59),
@@ -984,7 +984,7 @@ if(photo!=null){
 
                       }else{
                         gt.Get.snackbar(
-                          "bikeze.in",
+                          "bikezee.in",
                           " Please Fill all.",
                           snackPosition: gt.SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF324A59),
@@ -1076,7 +1076,7 @@ if(photo!=null){
               //
               //           }else{
               //             gt.Get.snackbar(
-              //               "bikeze.in",
+              //               "bikezee.in",
               //               " Please Fill all.",
               //               snackPosition: gt.SnackPosition.BOTTOM,
               //               backgroundColor: const Color(0xFF324A59),
@@ -1152,7 +1152,7 @@ if(photo!=null){
 
     try {
       String path =
-          "https://manyatechnosys.com/bikeze/checkin_mimage.php";
+          "https://manyatechnosys.com/bikezee/checkin_mimage.php";
 
       print("upload path: $path");
 

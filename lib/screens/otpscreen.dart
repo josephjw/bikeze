@@ -34,7 +34,7 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikeze/mobile_verification.php";
+    String url = "https://manyatechnosys.com/bikezee/mobile_verification.php";
     var map = new Map<String, String>();
 
     map['mobile'] = '${number}';
@@ -55,7 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
       if (json == "Invalid No") {
         Get.snackbar(
-          "bikeze",
+          "bikezee",
           "Invalid number",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // }
     } else {
       Get.snackbar(
-        "bikeze.in",
+        "bikezee.in",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -123,7 +123,7 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikeze/otp_verification.php";
+    String url = "https://manyatechnosys.com/bikezee/otp_verification.php";
     var map = Map<String, dynamic>();
     final SharedPreferences sharedPreferences =
     await SharedPreferences.getInstance();
@@ -139,7 +139,7 @@ class _OtpScreenState extends State<OtpScreen> {
       print("status code : ${res.statusCode}");
       if (json == "Invalid OTP") {
         Get.snackbar(
-          "bikeze.in",
+          "bikezee.in",
           " Invalid OTP",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -159,7 +159,7 @@ class _OtpScreenState extends State<OtpScreen> {
         Navigator.pop(context);
         Get.off(() => HomeScreen());
         Get.snackbar(
-          "bikeze.in",
+          "bikezee.in",
           "Successfully Signed in",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -171,7 +171,7 @@ class _OtpScreenState extends State<OtpScreen> {
       }
     } else {
       Get.snackbar(
-        "bikeze.in",
+        "bikezee.in",
         "Invalid OTP",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -358,7 +358,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 onPressed: () {
                   if (OTPPIN == null) {
                     Get.snackbar(
-                      "bikeze",
+                      "bikezee",
                       "Please Enter OTP",
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: const Color(0xFF324A59),

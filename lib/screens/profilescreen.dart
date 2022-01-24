@@ -109,7 +109,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikezee/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 
@@ -131,7 +131,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future updateProfile(String name, String address) async {
-    String url = "https://manyatechnosys.com/bikeze/editprofile.php";
+    String url = "https://manyatechnosys.com/bikezee/editprofile.php";
     var map = new Map<String, dynamic>();
     map['mobile_no'] = MobileNumber;
     map['g_name'] = name;
@@ -545,7 +545,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   fontSize: 12),
             ),
             Text(
-              "bikeze.IN Private Limited",
+              "bikezee.IN Private Limited",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
@@ -767,7 +767,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     Navigator.pop(context);
     Get.to(() => LoginScreen());
     Get.snackbar(
-      "bikeze.in",
+      "bikezee.in",
       "Successfully Signed Out",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: const Color(0xFF324A59),

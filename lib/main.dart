@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'bikeze.in Partner',
+      title: 'bikezee.in Partner',
       theme: ThemeData(
         // This is the theme of your application.
         //
