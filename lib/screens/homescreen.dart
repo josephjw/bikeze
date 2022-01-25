@@ -311,22 +311,60 @@ bool _loading=true,_loading2=true;
             ),
           ),
         );
-
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            content: ListTile(
-              title: Text(message.notification!.title!),
-              subtitle: Text(message.notification!.body!),
-            ),
+            content: Column(children: [
+              Row(children: [
+                Expanded(child: Container(),),
+                Image.asset("assets/images/close.png",height: 14,)
+              ],),
+              Row(children: [
+                Icon(Icons.notifications,color: Colors.black,),
+                Text(message.notification!.title!),
+
+              ],),
+              Text(message.notification!.body!)
+
+            ],),
             actions: <Widget>[
               FlatButton(
-                child: Text('Ok'),
-                onPressed: () => Navigator.of(context).pop(),
+                child: Text('View leads >'),
+                onPressed: (){
+
+                  Navigator.of(context).pop();
+                  // Get.to(() => DetailScreen(), arguments: [
+                  //   {'name': _leads[0].user_name},
+                  //   {'package': _leads[0].package},
+                  //   {'vehicle': _leads[0].vehicle},
+                  //   {'remarks': _leads[0].remarks},
+                  //   {'location': _leads[0].location},
+                  //   {'mobile': _leads[0].mobile_no},
+                  //   {'leadId': _leads[0].lead_id},
+                  //   {'date': _leads[0].booking_date},
+                  //   {'ebool': _leads[0].est_price_boolval},
+                  //   {'ibool': _leads[0].image_boolval}
+                  // ]);
+                },
               ),
             ],
           ),
         );
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     content: ListTile(
+        //       title: Text(message.notification!.title!),
+        //       subtitle: Text(message.notification!.body!),
+        //     ),
+        //     actions: <Widget>[
+        //       FlatButton(
+        //         child: Text('Ok'),
+        //         onPressed: () => Navigator.of(context).pop(),
+        //       ),
+        //     ],
+        //   ),
+        // );
       }
     });
   }
