@@ -62,8 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
           forwardAnimationCurve: Curves.easeOutBack,
         );
       } else {
-        Navigator.pop(context);
-        Get.to(() => OtpScreen(number: number,));
+        Get.off(() => OtpScreen(number: number,));
       }
     } else {
       Get.snackbar(

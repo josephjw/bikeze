@@ -156,7 +156,6 @@ class _OtpScreenState extends State<OtpScreen> {
         sharedPreferences.setString(Preferences.user_id, json["p_id"]);
         // sharedPreferences.setString(Preferences.user_image, json["g_image"]);
 
-        Navigator.pop(context);
         Get.off(() => HomeScreen());
         Get.snackbar(
           "bikezee.in",
