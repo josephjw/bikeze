@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-
-import 'package:bikezopartner/preference/Constants.dart';
+import 'package:bikezee/preference/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -60,7 +59,7 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
   }
 
   Future<void> paymentVerify() async {
-    String url = argumentData[0]["type"]=="terms"?"https://manyatechnosys.com/bikezee/terms_condtions.php":"https://manyatechnosys.com/bikezee/privacy_policy.php";
+    String url = argumentData[0]["type"]=="terms"?"https://manyatechnosys.com/bikeze/terms_condtions.php":"https://manyatechnosys.com/bikeze/privacy_policy.php";
     var res = await http.Client().post(Uri.parse(url));
     if (res.statusCode == 200) {
       print("status : ${res.statusCode}");

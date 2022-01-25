@@ -2,16 +2,16 @@
 
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/screens/otpscreen.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'otpscreen.dart';
 
 
 
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _loading=true;
     });
-    String url = "https://manyatechnosys.com/bikezee/mobile_verification.php";
+    String url = "https://manyatechnosys.com/bikeze/mobile_verification.php";
     var map = new Map<String, String>();
 
     map['mobile'] = '${number}';

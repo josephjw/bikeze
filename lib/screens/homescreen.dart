@@ -2,15 +2,15 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:bikezopartner/models/profileresponse.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/models/leadresponse.dart';
+import 'package:bikezee/models/profileresponse.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/screens/profilescreen.dart';
+import 'package:bikezee/theme/style.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/preference/shared_preference_helper.dart';
-import 'package:bikezopartner/screens/custom_drawer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +18,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-
-import 'package:bikezopartner/controllers/homecontroller.dart';
-import 'package:bikezopartner/models/leadresponse.dart';
-import 'package:bikezopartner/screens/detailscreen.dart';
-import 'package:bikezopartner/screens/profilescreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'detailscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -95,7 +92,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<bool> leadNew() async {
-    String url = "https://manyatechnosys.com/bikezee/lead_management_new.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_management_new.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -124,7 +121,7 @@ bool _loading=true,_loading2=true;
   List<LeadResponse> _leads =[];
 
   Future<bool> leadOld() async {
-    String url = "https://manyatechnosys.com/bikezee/lead_management_old.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_management_old.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -149,7 +146,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> dutyOn() async {
-    String url = "https://manyatechnosys.com/bikezee/online_offline_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/online_offline_partner.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -169,7 +166,7 @@ bool _loading=true,_loading2=true;
   }
 
   Future<void> lead_count() async {
-    String url = "https://manyatechnosys.com/bikezee/lead_count.php";
+    String url = "https://manyatechnosys.com/bikeze/lead_count.php";
     var map = new Map<String, String>();
 
     map['p_id'] = userid;
@@ -247,7 +244,7 @@ bool _loading=true,_loading2=true;
 
 
   Future<ProfileResponse> fetchProfile(String mobile) async {
-    String url = "https://manyatechnosys.com/bikezee/profile_partner.php";
+    String url = "https://manyatechnosys.com/bikeze/profile_partner.php";
     var map = new Map<String, dynamic>();
     map['mobile'] = mobile;
 
@@ -502,8 +499,8 @@ bool _loading=true,_loading2=true;
           // height: 800,
           width: MediaQuery.of(context).size.width,
           //color: Colors.black26,
-          decoration: const BoxDecoration(
-            color: Color(0XFF324b5a),
+          decoration:  BoxDecoration(
+            color: HexColor('#fafafa'),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -520,17 +517,17 @@ bool _loading=true,_loading2=true;
                     Row(
                       children: [
                         Expanded(
-                          child: const Text("LEAD MANAGEMENT",
+                          child:  Text("LEAD MANAGEMENT",
                               style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.white,
+                                  color: HexColor('#2d3238'),
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold)),
                         ),
                         Text("Today Leads : $leadcnt",
                             style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.white,
+                                color: HexColor('#2d3238'),
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.bold))
 
@@ -540,7 +537,7 @@ bool _loading=true,_loading2=true;
                      Text("${DateFormat('MMM').format(DateTime(0, now.month)) .toString()} ${now.year.toString()}",
                         style: TextStyle(
                             fontSize: 17,
-                            color: Colors.white,
+                            color: HexColor('#2d3238'),
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold)),
                     // FutureBuilder(
@@ -572,7 +569,7 @@ bool _loading=true,_loading2=true;
                      " No Leads are Found.",
                      style: TextStyle(
                        fontSize: 12,
-                       color: Colors.white,
+                       color: HexColor('#2d3238'),
                        fontFamily: 'Poppins',
                      )),
                ):
@@ -610,7 +607,7 @@ bool _loading=true,_loading2=true;
                               width: double.infinity,
                               //   color: Colors.white,
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: HexColor('#64676E'),
                                   borderRadius: BorderRadius.circular(12)),
                               child: Column(
                                 mainAxisAlignment:
@@ -628,7 +625,7 @@ bool _loading=true,_loading2=true;
                                             fontSize: 18,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.bold,
-                                            color: Color(0xff324A59)),
+                                            color: Colors.white),
                                       ),
                                       SizedBox(
                                         width: 55,
@@ -638,6 +635,7 @@ bool _loading=true,_loading2=true;
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontFamily: 'Poppins',
+                                           color: Colors.white,
                                         ),
                                       ),
                                       SizedBox(
@@ -650,6 +648,7 @@ bool _loading=true,_loading2=true;
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: 'Poppins',
+                                          color: Colors.white
                                       )),
                                    SizedBox(
                                     height: 4,
@@ -659,6 +658,7 @@ bool _loading=true,_loading2=true;
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: 'Poppins',
+                                          color: Colors.white
                                       )),
                                    SizedBox(height: 2),
                                   Row(
@@ -675,6 +675,7 @@ bool _loading=true,_loading2=true;
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: 'Poppins',
+                                                color: Colors.white
                                             ),
                                           ),
                                         ),
@@ -718,16 +719,131 @@ bool _loading=true,_loading2=true;
                             ),
                           ));
                     }),
+                    // Container(
+                    //   height: 110,
+                    //   width: double.infinity,
+                    //   //   color: Colors.white,
+                    //   decoration: BoxDecoration(
+                    //       color: HexColor('#64676E'),
+                    //       borderRadius: BorderRadius.circular(12)),
+                    //   child: Column(
+                    //     mainAxisAlignment:
+                    //     MainAxisAlignment.spaceEvenly,
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       SizedBox(height: 6),
+                    //       Row(
+                    //         mainAxisAlignment:
+                    //         MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text(
+                    //             "  user_name}",
+                    //             style: TextStyle(
+                    //                 fontSize: 18,
+                    //                 fontFamily: 'Poppins',
+                    //                 fontWeight: FontWeight.bold,
+                    //                 color: Colors.white),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 55,
+                    //           ),
+                    //           Text(
+                    //             "booking_date}",
+                    //             style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white,
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 1,
+                    //           )
+                    //         ],
+                    //       ),
+                    //       SizedBox(height: 2),
+                    //       Text("   General Service",
+                    //           style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white
+                    //           )),
+                    //       SizedBox(
+                    //         height: 4,
+                    //       ),
+                    //       Text(
+                    //           "   Package Selected:  \u{20B9}package}",
+                    //           style: TextStyle(
+                    //               fontSize: 12,
+                    //               fontFamily: 'Poppins',
+                    //               color: Colors.white
+                    //           )),
+                    //       SizedBox(height: 2),
+                    //       Row(
+                    //         //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               padding:
+                    //               EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    //               height: 25,
+                    //               width: 140,
+                    //               //  color: Colors.yellow,
+                    //               child: Text(
+                    //                 "   vehicle",
+                    //                 style: TextStyle(
+                    //                     fontSize: 12,
+                    //                     fontFamily: 'Poppins',
+                    //                     color: Colors.white
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 35,
+                    //             ),
+                    //             Padding(
+                    //               padding: EdgeInsets.fromLTRB(
+                    //                   20, 2, 1, 1),
+                    //               child: SizedBox(
+                    //                 height: 30,
+                    //                 // width: 130,
+                    //                 child: ElevatedButton(
+                    //                   onPressed: () {
+                    //                     String number =
+                    //                         'mobile_no}';
+                    //                     FlutterPhoneDirectCaller
+                    //                         .callNumber(number);
+                    //                   },
+                    //                   child:  Text("CALL NOW",
+                    //                       style: TextStyle(
+                    //                         color: Color(
+                    //                             0xff324759),
+                    //                         fontFamily: 'Poppins',
+                    //                       )),
+                    //                   style: ElevatedButton.styleFrom(
+                    //                     primary:  Colors.white,// background
+                    //                     onPrimary: Colors
+                    //                         .white, // foreground
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 0.5,
+                    //             )
+                    //           ]),
+                    //       SizedBox(height: 4)
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
 
                     //  use
-                    const Text("Older Leads",
+                     Text("Older Leads",
                         style: TextStyle(
                             fontSize: 17,
                             fontFamily: 'Poppins',
-                            color: Colors.white,
+                            color: HexColor('#2d3238'),
                             fontWeight: FontWeight.bold)),
 
               //     if (snapshot.hasError)
@@ -761,18 +877,18 @@ bool _loading=true,_loading2=true;
                 return Center(
                     child: InkWell(
                       onTap: () {
-                        // Get.to(() => DetailScreen(), arguments: [
-                        //   {'name': _oleads[index].user_name},
-                        //   {'package': _oleads[index].package},
-                        //   {'vehicle': _oleads[index].vehicle},
-                        //   {'remarks': _oleads[index].remarks},
-                        //   {'location': _oleads[index].location},
-                        //   {'mobile': _oleads[index].mobile_no},
-                        //   {'leadId': _oleads[index].lead_id},
-                        //   {'date': _oleads[index].booking_date},
-                        //   {'ebool': _oleads[index].est_price_boolval},
-                        //   {'ibool': _oleads[index].image_boolval}
-                        // ]);
+                        Get.to(() => DetailScreen(), arguments: [
+                          {'name': _oleads[index].user_name},
+                          {'package': _oleads[index].package},
+                          {'vehicle': _oleads[index].vehicle},
+                          {'remarks': _oleads[index].remarks},
+                          {'location': _oleads[index].location},
+                          {'mobile': _oleads[index].mobile_no},
+                          {'leadId': _oleads[index].lead_id},
+                          {'date': _oleads[index].booking_date},
+                          {'ebool': _oleads[index].est_price_boolval},
+                          {'ibool': _oleads[index].image_boolval}
+                        ]);
                       },
                       child: Container(
                         height: 110,
@@ -780,7 +896,14 @@ bool _loading=true,_loading2=true;
                         //   color: Colors.white,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          )
+                        ]),
                         child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.spaceEvenly,
@@ -798,7 +921,7 @@ bool _loading=true,_loading2=true;
                                       fontSize: 18,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff324A59)),
+                                      color: HexColor('#64676E')),
                                 ),
                                 SizedBox(
                                   width: 55,
@@ -808,6 +931,8 @@ bool _loading=true,_loading2=true;
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: 'Poppins',
+                                      color: HexColor('#64676E'),
+
                                   ),
                                 ),
                                 SizedBox(
@@ -816,10 +941,11 @@ bool _loading=true,_loading2=true;
                               ],
                             ),
                             const SizedBox(height: 2),
-                            const Text("   General Service",
+                             Text("   General Service",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Poppins',
+                                  color: HexColor('#64676E')
                                 )),
                             const SizedBox(
                               height: 4,
@@ -829,7 +955,9 @@ bool _loading=true,_loading2=true;
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Poppins',
-                                )),
+                                  color: HexColor('#64676E'),
+                                ),
+                            ),
                             const SizedBox(height: 2),
                             Row(
                               //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -845,6 +973,7 @@ bool _loading=true,_loading2=true;
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: 'Poppins',
+                                          color: HexColor('#64676E')
                                       ),
                                     ),
                                   ),

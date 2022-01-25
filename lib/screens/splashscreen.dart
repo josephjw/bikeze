@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:bikezopartner/screens/homescreen.dart';
-import 'package:bikezopartner/screens/loginscreen.dart';
-import 'package:bikezopartner/theme/style.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity/connectivity.dart';
+
+import 'homescreen.dart';
+import 'loginscreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

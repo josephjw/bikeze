@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-
-import 'package:bikezopartner/preference/Constants.dart';
+import 'package:bikezee/preference/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,8 +13,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-
-import 'package:bikezopartner/screens/profilescreen.dart';
 import 'package:http/http.dart' as http;
 
 class VerifyPaymentScreen extends StatefulWidget {
@@ -80,7 +77,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
   }
 
   Future<void> paymentVerify() async {
-    String url = "https://manyatechnosys.com/bikezee/verify_payment.php";
+    String url = "https://manyatechnosys.com/bikeze/verify_payment.php";
     var map = new Map<String, String>();
 
     map['lead_id'] =  argumentData[0]["leadId"]?? "5" ;

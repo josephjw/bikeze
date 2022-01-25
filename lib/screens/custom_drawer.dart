@@ -1,16 +1,18 @@
-import 'package:bikezopartner/models/drawer_item_model.dart';
-import 'package:bikezopartner/preference/Constants.dart';
-import 'package:bikezopartner/screens/loginscreen.dart';
-import 'package:bikezopartner/screens/privacyPolicyScreen.dart';
-import 'package:bikezopartner/screens/widget/custom_drawer_tile.dart';
-import 'package:bikezopartner/theme/style.dart';
-import 'package:bikezopartner/widgets/dialog.dart';
+
+import 'package:bikezee/models/drawer_item_model.dart';
+import 'package:bikezee/preference/Constants.dart';
+import 'package:bikezee/screens/privacyPolicyScreen.dart';
+import 'package:bikezee/screens/widget/custom_drawer_tile.dart';
+import 'package:bikezee/theme/style.dart';
+import 'package:bikezee/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 // import 'package:get/get_navigation/src/snackbar/snack.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'loginscreen.dart';
 
 class CustomDrawer extends StatefulWidget {
   CustomDrawer() : super();
