@@ -266,7 +266,7 @@ if(photo!=null){
               ),
               const Text("Service Status",
                   style: TextStyle(
-                      color: Color(0xff324A59),
+                      color: Colors.black,
                       fontFamily: 'Poppins',
                       fontSize: 20,
                       fontWeight: FontWeight.bold)),
@@ -290,7 +290,7 @@ if(photo!=null){
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 19,
-                                  color: Colors.black54),
+                                  color: Colors.black),
                             ),
                             const SizedBox(width: 2),
                             const SizedBox(
@@ -352,7 +352,7 @@ if(photo!=null){
                               fontFamily: 'Poppins',
                             )),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff324759), // background
+                          primary: HexColor('#EE7D59'), // background
                           onPrimary: Colors.white, // foreground
                         ),
                       ),
@@ -370,7 +370,7 @@ if(photo!=null){
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: const Color(0XFFe8e9eb),
+                  color: HexColor('#EE7D59'),
                 ),
 
                 child: Column(
@@ -383,7 +383,7 @@ if(photo!=null){
                       "Customer Service Summary",
                       style: TextStyle(
                           fontFamily: 'Poppins',
-                          color: Color(0xff324A59),
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 15),
                     ),
@@ -393,7 +393,7 @@ if(photo!=null){
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFFAAAAAA),
+                        color: Colors.white,
                         fontFamily: 'Poppins',
                       ),
                     ),
@@ -404,7 +404,7 @@ if(photo!=null){
                         fontSize: 12,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFAAAAAA),
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -417,7 +417,7 @@ if(photo!=null){
                             fontSize: 12,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFAAAAAA),
+                            color: Colors.white,
                           ),
                         ),
                         Expanded(
@@ -431,7 +431,7 @@ if(photo!=null){
                                 fontSize: 12,
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.bold,
-                                color: const Color(0xFFAAAAAA),
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -448,7 +448,7 @@ if(photo!=null){
                 padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: const Color(0XFFE7E9EB),
+                  color: HexColor('#EE7D59'),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -461,7 +461,7 @@ if(photo!=null){
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins',
                           fontSize: 15,
-                          color: Color(0XFFAAAAAA)),
+                          color: Colors.white),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -469,7 +469,7 @@ if(photo!=null){
                         const Text("Current Location:  ",
                             style: TextStyle(
                                 fontFamily: 'Poppins',
-                                color: const Color(0xff324A59),
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold)),
                         Expanded(
                           child: Container(
@@ -481,7 +481,7 @@ if(photo!=null){
                                     fontSize: 12,
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0XFFAAAAAA))),
+                                    color:Colors.white)),
                           ),
                         ),
                       ],
@@ -500,17 +500,18 @@ if(photo!=null){
                               MapsLauncher.launchQuery(
                                   "${argumentData[4]['location']}");
                             },
-                            icon: const Icon(FontAwesomeIcons.mapMarkerAlt,size: 16,),
-                            label: const Text(
+                            icon:  Icon(FontAwesomeIcons.mapMarkerAlt,size: 16,
+                                color:HexColor('#EE7D59')),
+                            label:  Text(
                               " View Map ",
                               style: TextStyle(
-                                color: Colors.white,
+                                color:HexColor('#EE7D59'),
                                 fontFamily: 'Poppins',
                                 fontSize: 16
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff324759), // background
+                              primary: Colors.white, // background
                               onPrimary: Colors.white, // foreground
                             ),
                           ),
@@ -587,7 +588,7 @@ if(photo!=null){
                            Icon(
                             Icons.image,
                             size: 40,
-                            color: upload ? Color(0xff324A59):Color(0xFFAAAAAA),
+                            color: !upload ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
                           ),
                           const SizedBox(
                             width: 10,
@@ -620,7 +621,7 @@ if(photo!=null){
 
                            Icon(
                             FontAwesomeIcons.solidCheckCircle,
-                            color: upload  ?Color(0xff324A59):Color(0xFFAAAAAA),
+                            color: upload  ?Color(0xff324A59):HexColor('#EE7D59'),
                           ),
                           const SizedBox(
                             width: 20,
@@ -774,7 +775,7 @@ if(photo!=null){
                            Icon(
                             FontAwesomeIcons.fileInvoice,
                             size: 35,
-                              color: esti_status ?Color(0xff324759): Color(0xFFAAAAAA)
+                              color: !esti_status ?HexColor('#EE7D59').withOpacity(0.5): Color(0xFFAAAAAA)
                           ),
                           const SizedBox(
                             width: 10,
@@ -866,7 +867,7 @@ if(photo!=null){
                            Icon(
                             FontAwesomeIcons.creditCard,
                             size: 35,
-                            color: verifypay ? Color(0xff324A59): Color(0xffAAAAAA),
+                            color: !verifypay ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
                           ),
                           const SizedBox(
                             width: 10,
