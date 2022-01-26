@@ -138,22 +138,24 @@ class _LoginScreenState extends State<LoginScreen> {
               children: const [
                 SizedBox(width: 35),
                 Text(
-                  "Sign in",
+                  "LOGIN",
                   style: TextStyle(
-                    fontSize: 26,
-                    color: Color(0XFF324b5a),
+                    fontSize: 24,
+                    color: Colors.black,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 10),
+
             Row(
               children: [
                 const SizedBox(width: 35),
                 Text("Welcome back",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade400,
@@ -167,53 +169,56 @@ class _LoginScreenState extends State<LoginScreen> {
               //  color: Colors.yellow,
               child: Column(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      const Text(
-                        "+91",
-                        style: const TextStyle(
-                            //decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: const Color(0xff324A59),
-                            fontFamily: 'Poppins',
-                            decorationColor: Colors.grey),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Text("|",
+                  Container(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black)
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        const Text(
+                          "+91",
                           style: const TextStyle(
-                              color: Colors.grey, fontSize: 30)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                          child: TextFormField(
-                        cursorColor: Colors.black,
-                        controller: mobNumber,
-
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "MOB NUMBER",
-                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                              //decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: const Color(0xff324A59),
+                              fontFamily: 'Poppins',
+                              decorationColor: Colors.grey),
                         ),
-                      ))
-                    ],
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text("|",
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 30)),
+                        const SizedBox(width: 10),
+                        Expanded(
+                            child: TextFormField(
+                          cursorColor: Colors.black,
+                          controller: mobNumber,
+
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "MOB NUMBER",
+                            hintStyle: TextStyle(color: Colors.black),
+                          ),
+                        ))
+                      ],
+                    ),
                   ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 3,
-                    thickness: 1,
-                  ),
+
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   const Expanded(
                       child: const Text(
                     "Please Enter your Registered Mob Number",
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
+                      color: Color(0XFF324b5a),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins',
                     ),
                   )),
@@ -243,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: _loading?CircularProgressIndicator(): Icon(Icons.arrow_forward),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff324759),
+                          primary: Colors.black,
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(24),
                         ),
@@ -265,9 +270,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         "Want to Join With us",
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: const Color(0xFF324A59),
                             fontFamily: 'Poppins',
-                            fontSize: 14),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
                       ),
                     ],
                   ),
@@ -275,14 +281,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: const [
                       Text("Please contact ",
                           style: TextStyle(
-                              color: Colors.grey,
+                              color: Color(0xFF324A59),
                               fontFamily: 'Poppins',
-                              fontSize: 16)),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15)),
                       Text("partner@bikeze.in",
                           style: TextStyle(
-                              color: Color(0xFF3F9AD8),
+                              color: Colors.red,
                               fontFamily: 'Poppins',
-                              fontSize: 16))
+                              fontSize: 14))
                     ],
                   )
                 ],

@@ -209,11 +209,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(width: 12),
                       TextButton(
                         onPressed: () {},
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xff324A59),
-                          size: 30,
-                        ),
+                        child: Image.asset('assets/images/Profile.png',color:Color(0xff324A59),height: 20,),
                         style: ElevatedButton.styleFrom(
                           onPrimary: Color(0xff324A59),
                           primary: Colors.white54,
@@ -245,78 +241,82 @@ class ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                                title: "Update Name",
-                                content: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 1,
+                      TextButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                              title: "Update Name",
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 1,
+                                  ),
+                                  const Text("Name :",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 14)),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                    child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      onChanged: (txt) {
+                                        l_owner = txt;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Enter Name",
+                                        fillColor: Color(0xffE7E9EB),
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(0xffE7E9EB))),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(0xffE7E9EB))),
+                                      ),
                                     ),
-                                    const Text("Name :",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
+                                  ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  SizedBox(
+                                    width: 130,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        setState(() {});
+                                        updateProfile(l_owner!, address!)
+                                            .whenComplete(() {
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: const Text("Update",
+                                          style: TextStyle(
+                                            color: Colors.white,
                                             fontFamily: 'Poppins',
-                                            fontSize: 14)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    SizedBox(
-                                      width: 200,
-                                      child: TextField(
-                                        keyboardType: TextInputType.text,
-                                        onChanged: (txt) {
-                                          l_owner = txt;
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText: "Enter Name",
-                                          fillColor: Color(0xffE7E9EB),
-                                          filled: true,
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xffE7E9EB))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xffE7E9EB))),
-                                        ),
+                                          )),
+                                      style: ElevatedButton.styleFrom(
+                                        primary:
+                                        const Color(0xff324759), // background
+                                        onPrimary: Colors.white, // foreground
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    SizedBox(
-                                      width: 130,
-                                      child: ElevatedButton(
-                                        onPressed: () async {
-                                          setState(() {});
-                                          updateProfile(l_owner!, address!)
-                                              .whenComplete(() {
-                                            Navigator.pop(context);
-                                          });
-                                        },
-                                        child: const Text("Update",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Poppins',
-                                            )),
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                          const Color(0xff324759), // background
-                                          onPrimary: Colors.white, // foreground
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ));
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Color(0xff324A59),
-                            size: 20,
-                          ))
+                                  ),
+                                ],
+                              ));
+                        },
+                        child: Image.asset('assets/images/Edit.png',color:Color(0xff324A59),height: 20,),
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: Color(0xff324A59),
+                          primary: Colors.white54,
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(5),
+                        ),
+                      ),
+
                     ],
                   ),
                   SizedBox(
@@ -327,13 +327,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(width: 12),
                       TextButton(
                         onPressed: () {},
-                        child: Icon(
-                          Icons.call,
-                          color: Color(0xff324A59),
-                          size: 30,
-                        ),
+                        child: Image.asset('assets/images/Vector.png',color:Color(0xff324A59),height: 20,),
                         style: ElevatedButton.styleFrom(
-                          onPrimary: Colors.black,
+                          onPrimary: Color(0xff324A59),
                           primary: Colors.white54,
                           shape: CircleBorder(),
                           padding: EdgeInsets.all(5),
@@ -373,13 +369,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(width: 12),
                       TextButton(
                         onPressed: () {},
-                        child: Icon(
-                          Icons.mail,
-                          color: Color(0xff324A59),
-                          size: 30,
-                        ),
+                        child: Image.asset('assets/images/Message.png',color:Color(0xff324A59),height: 20,),
                         style: ElevatedButton.styleFrom(
-                          onPrimary: Colors.black,
+                          onPrimary: Color(0xff324A59),
                           primary: Colors.white54,
                           shape: CircleBorder(),
                           padding: EdgeInsets.all(5),
@@ -419,13 +411,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(width: 12),
                       TextButton(
                         onPressed: () {},
-                        child: Icon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          color: Color(0xff324A59),
-                          size: 30,
-                        ),
+                        child: Image.asset('assets/images/Location.png',color:Color(0xff324A59),height: 20,),
                         style: ElevatedButton.styleFrom(
-                          onPrimary: Colors.black,
+                          onPrimary: Color(0xff324A59),
                           primary: Colors.white54,
                           shape: CircleBorder(),
                           padding: EdgeInsets.all(5),
@@ -455,77 +443,81 @@ class ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                                title: "Update address ",
-                                content: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 1,
+                      TextButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                              title: "Update address ",
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 1,
+                                  ),
+                                  const Text("Address :",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 14)),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                    child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      onChanged: (txt) {
+                                        l_address = txt;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Enter Address",
+                                        fillColor: Color(0xffE7E9EB),
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(0xffE7E9EB))),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(0xffE7E9EB))),
+                                      ),
                                     ),
-                                    const Text("Address :",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
+                                  ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  SizedBox(
+                                    width: 130,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        updateProfile(owner!, l_address!)
+                                            .whenComplete(() {
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: const Text("Update",
+                                          style: TextStyle(
+                                            color: Colors.white,
                                             fontFamily: 'Poppins',
-                                            fontSize: 14)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    SizedBox(
-                                      width: 200,
-                                      child: TextField(
-                                        keyboardType: TextInputType.text,
-                                        onChanged: (txt) {
-                                          l_address = txt;
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText: "Enter Address",
-                                          fillColor: Color(0xffE7E9EB),
-                                          filled: true,
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xffE7E9EB))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xffE7E9EB))),
-                                        ),
+                                          )),
+                                      style: ElevatedButton.styleFrom(
+                                        primary:
+                                        const Color(0xff324759), // background
+                                        onPrimary: Colors.white, // foreground
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    SizedBox(
-                                      width: 130,
-                                      child: ElevatedButton(
-                                        onPressed: () async {
-                                          updateProfile(owner!, l_address!)
-                                              .whenComplete(() {
-                                            Navigator.pop(context);
-                                          });
-                                        },
-                                        child: const Text("Update",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Poppins',
-                                            )),
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                          const Color(0xff324759), // background
-                                          onPrimary: Colors.white, // foreground
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ));
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Color(0xff324A59),
-                            size: 25,
-                          ))
+                                  ),
+                                ],
+                              ));
+                        },
+                        child: Image.asset('assets/images/Edit.png',color:Color(0xff324A59),height: 20,),
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: Color(0xff324A59),
+                          primary: Colors.white54,
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(5),
+                        ),
+                      ),
+
                     ],
                   ),
 

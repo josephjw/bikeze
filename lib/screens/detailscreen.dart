@@ -241,870 +241,860 @@ if(photo!=null){
     initConnectivity();
     getProfile();
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 65,
-              ),
-              TextButton(
-                onPressed: () {
-                  gt.Get.back();
-                },
-                child: const Icon(Icons.arrow_back),
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.black,
-                  primary: Colors.white54,
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(5),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                
+                TextButton(
+                  onPressed: () {
+                    gt.Get.back();
+                  },
+                  child: const Icon(Icons.arrow_back),
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: Colors.black,
+                    primary: Colors.white54,
+                    shape: const CircleBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              const Text("Service Status",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      // color: Colors.yellow,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${argumentData[0]['name']}",
-                              style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19,
-                                  color: Colors.black),
-                            ),
-                            const SizedBox(width: 2),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            const SizedBox(height: 2),
-                            const Text("General Service",
-                                style: TextStyle(
-                                    fontSize: 12,
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text("  Service Status",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Poppins',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                const SizedBox(height: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 100,
+                        // color: Colors.yellow,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${argumentData[0]['name']}",
+                                style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0XFFAAAAAA))),
-                            const SizedBox(height: 5),
-                            Row(
-                              children:  [
-                                Icon(FontAwesomeIcons.calendarDay,
-                                    size: 16,
-                                    color: Color(0XFFAAAAAA)),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Text(
-                                  argumentData[7]['date'],
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
+                                    fontSize: 19,
+                                    color: Colors.black),
+                              ),
+                              const SizedBox(width: 2),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              const SizedBox(height: 2),
+                              const Text("General Service",
+                                  style: TextStyle(
                                       fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0XFFAAAAAA))),
+                              const SizedBox(height: 5),
+                              Row(
+                                children:  [
+                                  Icon(FontAwesomeIcons.calendarDay,
+                                      size: 16,
                                       color: Color(0XFFAAAAAA)),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "${argumentData[2]['vehicle']}",
-                              style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 13,
-                                  color: Color(0XFFAAAAAA)),
-                            ),
-                          ],
+                                  SizedBox(
+                                    width: 6,
+                                  ),
+                                  Text(
+                                    argumentData[7]['date'],
+                                      style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12,
+                                        color: Color(0XFFAAAAAA)),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "${argumentData[2]['vehicle']}",
+                                style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 13,
+                                    color: Color(0XFFAAAAAA)),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
+
+                    Container(
+                      padding: EdgeInsets.only(top: 20),
+                      child: SizedBox(
+                        height: 25,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            FlutterPhoneDirectCaller.callNumber(argumentData[5]['mobile']);
+
+                          },
+                          child: const Text(" Customer Contact ",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontFamily: 'Poppins',
+                              )),
+                          style: ElevatedButton.styleFrom(
+                            primary: HexColor('#EE7D59'), // background
+                            onPrimary: Colors.white, // foreground
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // height: 150,
+                  // width: 340,
+                  //color: Colors.yellow,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: HexColor('#EE7D59'),
                   ),
 
-                  Container(
-                    padding: EdgeInsets.only(top: 20),
-                    child: SizedBox(
-                      height: 30,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          FlutterPhoneDirectCaller.callNumber(argumentData[5]['mobile']);
-
-                        },
-                        child: const Text(" CALL NOW ",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Poppins',
-                            )),
-                        style: ElevatedButton.styleFrom(
-                          primary: HexColor('#EE7D59'), // background
-                          onPrimary: Colors.white, // foreground
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                // height: 150,
-                // width: 340,
-                //color: Colors.yellow,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: HexColor('#EE7D59'),
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Customer Service Summary",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    ),
-                    const SizedBox(height: 7),
-                    const Text(
-                      "Selected Service : General Service",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    const SizedBox(height: 7),
-                    Text(
-                      "Package Selected :  \u{20B9} ${argumentData[1]['package']}",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Customer Remarks :",
-                          style: TextStyle(
-                            fontSize: 12,
+                      const Text(
+                        "Customer Service Summary",
+                        style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
                             color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 40,
-                            width: 30,
-                            //color: Colors.yellow,
-                            child: Text(
-                              " ${argumentData[3]['remarks']}",
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: HexColor('#EE7D59'),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 2),
-                    const Text(
-                      "Pickup details",
-                      style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                      const SizedBox(height: 7),
+                      const Text(
+                        "Selected Service : General Service",
+                        style: TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                           fontFamily: 'Poppins',
-                          fontSize: 15,
-                          color: Colors.white),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Current Location:  ",
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      Text(
+                        "Package Selected :  \u{20B9} ${argumentData[1]['package']}",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Customer Remarks :",
                             style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                        Expanded(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            //color: Colors.yellow,
-                            child: Text("${argumentData[4]['location']}",
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color:Colors.white)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Center(
-
-                      child:
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: SizedBox(
-                          height: 30,
-
-                          child: ElevatedButton.icon(
-
-                            onPressed: () {
-                              MapsLauncher.launchQuery(
-                                  "${argumentData[4]['location']}");
-                            },
-                            icon:  Icon(FontAwesomeIcons.mapMarkerAlt,size: 16,
-                                color:HexColor('#EE7D59')),
-                            label:  Text(
-                              " View Map ",
-                              style: TextStyle(
-                                color:HexColor('#EE7D59'),
-                                fontFamily: 'Poppins',
-                                fontSize: 16
-                              ),
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.white, // background
-                              onPrimary: Colors.white, // foreground
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Service Progress Update",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    fontSize: 14),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-    if( !upload){
-
-    gt.Get.defaultDialog(
-                      title: "",
-                      content: Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              getImagefromCamera();
-                            },
-                            icon: const Icon(
-                              Icons.camera,
-                            ),
-                            label: const Text("Camera"),
-                            style: ElevatedButton.styleFrom(
-                                primary: const Color(0xff324A59)),
-                          ),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              getImageFromGallery();
-                              // loadAssets();
-                            },
-                            icon: const Icon(
-                              Icons.image,
-                            ),
-                            label: const Text("Image"),
-                            style: ElevatedButton.styleFrom(
-                                primary: const Color(
-                                    0xff324A59) //elevated btton background color
-                                ),
-                          ),
-                        ],
-                      )));
-    }
-                },
-                child: Center(
-                  child: Container(
-                      height: 80,
-                      width: 320,
-                      //color: Colors.yellow,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 0.5, color: const Color(0xFFAAAAAA)),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 20),
-                           Icon(
-                            Icons.image,
-                            size: 40,
-                            color: !upload ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
-                          ),
-                          const SizedBox(
-                            width: 10,
                           ),
                           Expanded(
-                            child: Column(
-                              children: const [
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                Text(
-                                  "Step 1",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFAAAAAA)),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Check In",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
-                                    ))
-                              ],
-                            ),
-                          ),
-
-                           Icon(
-                            FontAwesomeIcons.solidCheckCircle,
-                            color: upload  ?HexColor('#EE7D59'):Colors.grey,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-              const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                 if( !esti_status){
-
-                  gt.Get.defaultDialog(
-                      title: "",
-                      content: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          const Text("ESTIMATED PRICE",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
+                            child: Container(
+                              height: 40,
+                              width: 30,
+                              //color: Colors.yellow,
+                              child: Text(
+                                " ${argumentData[3]['remarks']}",
+                                style: const TextStyle(
+                                  fontSize: 12,
                                   fontFamily: 'Poppins',
-                                  fontSize: 20)),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                           SizedBox(
-                            width: 200,
-                            child: TextField(
-
-                              keyboardType: TextInputType.number,
-                             onChanged: (txt){
-                                setState(() {
-                                  estprice=txt;
-                                });
-
-                             },
-                              decoration: InputDecoration(
-                                hintText: "Enter Amount",
-                                fillColor: Color(0xffE7E9EB),
-                                filled: true,
-
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffE7E9EB))),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffE7E9EB))),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 25,
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+
+                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: HexColor('#EE7D59'),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 2),
+                      const Text(
+                        "Pickup details",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins',
+                            fontSize: 15,
+                            color: Colors.white),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Current Location:  ",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          Expanded(
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              //color: Colors.yellow,
+                              child: Text("${argumentData[4]['location']}",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color:Colors.white)),
+                            ),
                           ),
-                          SizedBox(
-                            width: 130,
-                            child: ElevatedButton(
-                              onPressed: ()async {
-                                Get.defaultDialog(
-                                  title: "Are You Sure?",
-                                  content: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(
-                                        height: 1,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          ElevatedButton(
-                                            onPressed: () async{
-                                              esti_status=false;
-                                              SharedPreferences sharedPreferences =
-                                                  await SharedPreferences.getInstance();
+                        ],
+                      ),
+                      Center(
 
-                                              await estimationPrice().whenComplete(() {
-                                                setState(() {
-                                                  esti_status=true;
-                                                });
-                                                sharedPreferences.setBool(argumentData[6]['leadId']+"estimation", true);
+                        child:
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: SizedBox(
+                            height: 30,
 
-                                              });
-                                              Get.back();
-                                              Navigator.pop(context);
-                                              CommonDialogs.showGenericToast( 'You have successfully updated price.', );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                primary: HexColor('#181D2D')),
-                                            child: const Text("YES",
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 14)),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Get.back();
-                                              Navigator.pop(context);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary: HexColor('#181D2D'),
-                                            ),
-                                            child: const Text("NO",
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 14)),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
-                                );
+                            child: ElevatedButton.icon(
 
-
-
+                              onPressed: () {
+                                MapsLauncher.launchQuery(
+                                    "${argumentData[4]['location']}");
                               },
-                              child: const Text("UPDATE PRICE",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Poppins',
-                                  )),
+                              icon:  Icon(FontAwesomeIcons.mapMarkerAlt,size: 16,
+                                  color:HexColor('#EE7D59')),
+                              label:  Text(
+                                " View Map ",
+                                style: TextStyle(
+                                  color:HexColor('#EE7D59'),
+                                  fontFamily: 'Poppins',
+                                  fontSize: 16
+                                ),
+                              ),
                               style: ElevatedButton.styleFrom(
-                                primary: const Color(0xff324759), // background
+                                primary: Colors.white, // background
                                 onPrimary: Colors.white, // foreground
                               ),
                             ),
                           ),
-                        ],
-                      ));}
-                },
-                child: Center(
-                  child: Container(
-                      height: 80,
-                      width: 320,
-                      //color: Colors.yellow,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 0.5, color: const Color(0xFFAAAAAA)),
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 20),
-                           Icon(
-                            FontAwesomeIcons.fileInvoice,
-                            size: 35,
-                              color: !esti_status ?HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59')
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Column(
-                              children:  [
-                                SizedBox(
-                                  height: 14,
-                                ),
-                                Text(
-                                  "Step 2",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w300,
-                                      color: Color(0xFFAAAAAA)
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Estimate Price",
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w300,
-                                    ))
-                              ],
-                            ),
-                          ),
-
-                          esti_status ?
-
-                          Icon(
-                              FontAwesomeIcons.solidCheckCircle,
-                              color: HexColor('#EE7D59')
-                          ): Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
-                          const SizedBox(width: 20),
-
-                        ],
-                      )),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () async{
-                  SharedPreferences sharedPreferences =
-                      await SharedPreferences.getInstance();
-                  if(esti_status){
-                    // setState(() {
-                    //   verifypay=true;
-                    //
-                    // });
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Service Progress Update",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 14),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: () {
+    if( !upload){
 
-
-                  gt.Get.to(() => VerifyPaymentScreen(), arguments: [
-                    {'leadId': argumentData[6]['leadId']},
-                    {'estimatedPrice': estprice},
-                    {'assign': argumentData[10]['assign']}
-
-                  ]);
-                }else{
-                    gt.Get.snackbar(
-                      "bikeze.in",
-                      " Please Provide Estimation price.",
-                      snackPosition: gt.SnackPosition.BOTTOM,
-                      backgroundColor: const Color(0xFF324A59),
-                      colorText: Colors.white,
-                      isDismissible: true,
-                      // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
-                      forwardAnimationCurve: Curves.easeOutBack,
-                    );
-                  }
-                },
-                child: Center(
-                  child: Container(
-                      height: 80,
-                      width: 320,
-                      //color: Colors.yellow,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 0.5, color: const Color(0xFFAAAAAA)),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 20),
-                           Icon(
-                            FontAwesomeIcons.creditCard,
-                            size: 35,
-                            color: !verifypay ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: const [
-                                SizedBox(
-                                  height: 14,
-                                ),
-                                Text(
-                                  "Step 3",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w300,
-                                      color: Color(0xFFAAAAAA)),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("  Verify Payment",
+    gt.Get.defaultDialog(
+                        title: "",
+                        content: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                getImagefromCamera();
+                              },
+                              icon: const Icon(
+                                Icons.camera,
+                              ),
+                              label: const Text("Camera"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xff324A59)),
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                getImageFromGallery();
+                                // loadAssets();
+                              },
+                              icon: const Icon(
+                                Icons.image,
+                              ),
+                              label: const Text("Image"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: const Color(
+                                      0xff324A59) //elevated btton background color
+                                  ),
+                            ),
+                          ],
+                        )));
+    }
+                  },
+                  child: Center(
+                    child: Container(
+                        height: 80,
+                        width: 320,
+                        //color: Colors.yellow,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 0.5, color: const Color(0xFFAAAAAA)),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 20),
+                             Icon(
+                              Icons.image,
+                              size: 40,
+                              color: !upload ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: const [
+                                  SizedBox(
+                                    height: 18,
+                                  ),
+                                  Text(
+                                    "Step 1",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w300,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFAAAAAA)),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("Check In",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'Poppins',
+                                      ))
+                                ],
+                              ),
+                            ),
+
+                             Icon(
+                              FontAwesomeIcons.solidCheckCircle,
+                              color: upload  ?HexColor('#EE7D59'):Colors.grey,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                InkWell(
+                  onTap: () {
+                   if( !esti_status){
+
+                    gt.Get.defaultDialog(
+                        title: "",
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            const Text("ESTIMATED PRICE",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                             SizedBox(
+                              width: 200,
+                              child: TextField(
+
+                                keyboardType: TextInputType.number,
+                               onChanged: (txt){
+                                  setState(() {
+                                    estprice=txt;
+                                  });
+
+                               },
+                                decoration: InputDecoration(
+                                  hintText: "Enter Amount",
+                                  fillColor: Color(0xffE7E9EB),
+                                  filled: true,
+
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffE7E9EB))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffE7E9EB))),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            SizedBox(
+                              width: 130,
+                              child: ElevatedButton(
+                                onPressed: ()async {
+                                  Get.defaultDialog(
+                                    title: "Are You Sure?",
+                                    content: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 1,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () async{
+                                                esti_status=false;
+                                                SharedPreferences sharedPreferences =
+                                                    await SharedPreferences.getInstance();
+
+                                                await estimationPrice().whenComplete(() {
+                                                  setState(() {
+                                                    esti_status=true;
+                                                  });
+                                                  sharedPreferences.setBool(argumentData[6]['leadId']+"estimation", true);
+
+                                                });
+                                                Get.back();
+                                                Navigator.pop(context);
+                                                CommonDialogs.showGenericToast( 'You have successfully updated price.', );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: HexColor('#181D2D')),
+                                              child: const Text("YES",
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: 'Poppins',
+                                                      fontSize: 14)),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Get.back();
+                                                Navigator.pop(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: HexColor('#181D2D'),
+                                              ),
+                                              child: const Text("NO",
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: 'Poppins',
+                                                      fontSize: 14)),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+
+
+
+                                },
+                                child: const Text("UPDATE PRICE",
+                                    style: TextStyle(
+                                      color: Colors.white,
                                       fontFamily: 'Poppins',
                                     )),
-                              ],
-                            ),
-                          ),
-                          verifypay ?
-
-                          Icon(
-                              FontAwesomeIcons.solidCheckCircle,
-                              color: HexColor('#EE7D59')
-                          ):
-                          Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
-                          const SizedBox(width: 20),
-                        ],
-                      )),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-                Center(
-                  child: SlideAction(
-                  innerColor:Colors.white,
-                  height: 50,
-                  key: _key,
-                  outerColor:const Color(0xff324759) ,
-                  sliderButtonIconSize: 16,
-                  reversed: false,
-                  child: const Center(
-                      child: Text("SWIPE TO FINISH",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700))),
-                  onSubmit: (){
-                      if(esti_status&&verifypay){
-
-                        completePayment().whenComplete(() {
-                          gt.Get.defaultDialog(
-                              content: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Align(alignment: Alignment.topCenter,
-                                    child: Text("Lead Completed",
-                                      style:TextStyle( fontFamily: 'Poppins',
-                                      color: Colors.black,
-                                      fontSize: 15,),)),
-
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          gt.Get.back();
-                                        },
-                                        child: const Icon(Icons.close_rounded,size: 30,),
-                                        style: ElevatedButton.styleFrom(
-                                          onPrimary: Colors.black,
-                                          primary: Colors.white54,
-                                          shape: const CircleBorder(),
-                                          padding: const EdgeInsets.all(5),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 70,
-                                      width: 70,
-                                      child: Image.asset(
-                                          'assets/images/greentick.png'),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50)),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      "Successfully Completed",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xff324759), // background
+                                  onPrimary: Colors.white, // foreground
                                 ),
-                              ));});
-                        CommonDialogs.showGenericToast( 'Lead successfully completed.', );
-                        Future.delayed(const Duration(milliseconds: 3000), () {
-
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-
-                        });
-
-                      }else{
-                        gt.Get.snackbar(
-                          "bikeze.in",
-                          " Please Fill all.",
-                          snackPosition: gt.SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF324A59),
-                          colorText: Colors.white,
-                          isDismissible: true,
-                          // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
-                          forwardAnimationCurve: Curves.easeOutBack,
-                        );
-                        _key.currentState?.reset();
-                      }
+                              ),
+                            ),
+                          ],
+                        ));}
                   },
+                  child: Center(
+                    child: Container(
+                        height: 80,
+                        width: 320,
+                        //color: Colors.yellow,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 0.5, color: const Color(0xFFAAAAAA)),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 20),
+                             Icon(
+                              FontAwesomeIcons.fileInvoice,
+                              size: 35,
+                                color: !esti_status ?HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59')
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Column(
+                                children:  [
+                                  SizedBox(
+                                    height: 14,
+                                  ),
+                                  Text(
+                                    "Step 2",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w300,
+                                        color: Color(0xFFAAAAAA)
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("Estimate Price",
+                                      style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w300,
+                                      ))
+                                ],
+                              ),
+                            ),
 
-              ),
+                            esti_status ?
+
+                            Icon(
+                                FontAwesomeIcons.solidCheckCircle,
+                                color: HexColor('#EE7D59')
+                            ): Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
+                            const SizedBox(width: 20),
+
+                          ],
+                        )),
+                  ),
                 ),
-              // Center(
-              //   child: SlidableButton(
-              //     width: double.infinity,
-              //     height: 50,
-              //     buttonWidth: 10.0,
-              //     key: _key,
-              //
-              //     border: Border.all(color: const Color(0xff324759)),
-              //     label: const Icon(Icons.arrow_forward),
-              //     buttonColor: Colors.white,
-              //     color: const Color(0xff324759),
-              //     child: const Center(
-              //         child: Text("SWIPE TO FINISH",
-              //             style: TextStyle(
-              //                 fontFamily: 'Poppins',
-              //                 color: Colors.white,
-              //                 fontSize: 15,
-              //                 fontWeight: FontWeight.w700))),
-              //     dismissible: true,
-              //     onChanged: (position) {
-              //       setState(() {
-              //         if (position == SlidableButtonPosition.right) {
-              //           if(esti_status&&verifypay){
-              //
-              //             completePayment().whenComplete(() {
-              //               gt.Get.defaultDialog(
-              //                   title: "",
-              //                   content: Container(
-              //                     child: Column(
-              //                       children: [
-              //                         Align(
-              //                           alignment: Alignment.topRight,
-              //                           child: TextButton(
-              //                             onPressed: () {
-              //                               Navigator.pop(context);
-              //                               gt.Get.back();
-              //                             },
-              //                             child: const Icon(Icons.close_rounded,size: 30,),
-              //                             style: ElevatedButton.styleFrom(
-              //                               onPrimary: Colors.black,
-              //                               primary: Colors.white54,
-              //                               shape: const CircleBorder(),
-              //                               padding: const EdgeInsets.all(5),
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         Container(
-              //                           height: 200,
-              //                           width: 200,
-              //                           child: Image.asset(
-              //                               'assets/images/greentick.png'),
-              //                           decoration: BoxDecoration(
-              //                               borderRadius: BorderRadius.circular(50)),
-              //                         ),
-              //                         SizedBox(
-              //                           height: 15,
-              //                         ),
-              //                         Text(
-              //                           "Successfully Completed",
-              //                           style: TextStyle(
-              //                               fontSize: 20,
-              //                               fontFamily: 'Poppins',
-              //                               fontWeight: FontWeight.bold),
-              //                         )
-              //                       ],
-              //                     ),
-              //                   ));});
-              //             CommonDialogs.showGenericToast( 'Lead successfully completed.', );
-              //             Future.delayed(const Duration(milliseconds: 3000), () {
-              //
-              //               Navigator.pop(context);
-              //               Navigator.pop(context);
-              //
-              //             });
-              //
-              //           }else{
-              //             gt.Get.snackbar(
-              //               "bikeze.in",
-              //               " Please Fill all.",
-              //               snackPosition: gt.SnackPosition.BOTTOM,
-              //               backgroundColor: const Color(0xFF324A59),
-              //               colorText: Colors.white,
-              //               isDismissible: true,
-              //               // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
-              //               forwardAnimationCurve: Curves.easeOutBack,
-              //             );
-              //             _key.currentState?.reset();
-              //
-              //           }
-              //
-              //
-              //
-              //         }
-              //       });
-              //     },
-              //   ),
-              // ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                InkWell(
+                  onTap: () async{
+                    SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    if(esti_status){
+                      // setState(() {
+                      //   verifypay=true;
+                      //
+                      // });
+
+
+                    gt.Get.to(() => VerifyPaymentScreen(), arguments: [
+                      {'leadId': argumentData[6]['leadId']},
+                      {'estimatedPrice': estprice},
+                      {'assign': argumentData[10]['assign']}
+
+                    ]);
+                  }else{
+                      gt.Get.snackbar(
+                        "bikeze.in",
+                        " Please Provide Estimation price.",
+                        snackPosition: gt.SnackPosition.BOTTOM,
+                        backgroundColor: const Color(0xFF324A59),
+                        colorText: Colors.white,
+                        isDismissible: true,
+                        // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
+                        forwardAnimationCurve: Curves.easeOutBack,
+                      );
+                    }
+                  },
+                  child: Center(
+                    child: Container(
+                        height: 80,
+                        width: 320,
+                        //color: Colors.yellow,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 0.5, color: const Color(0xFFAAAAAA)),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 20),
+                             Icon(
+                              FontAwesomeIcons.creditCard,
+                              size: 35,
+                              color: !verifypay ? HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59'),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: const [
+                                  SizedBox(
+                                    height: 14,
+                                  ),
+                                  Text(
+                                    "Step 3",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w300,
+                                        color: Color(0xFFAAAAAA)),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("  Verify Payment",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'Poppins',
+                                      )),
+                                ],
+                              ),
+                            ),
+                            verifypay ?
+
+                            Icon(
+                                FontAwesomeIcons.solidCheckCircle,
+                                color: HexColor('#EE7D59')
+                            ):
+                            Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
+                            const SizedBox(width: 20),
+                          ],
+                        )),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                  Center(
+                    child: SlideAction(
+                    innerColor:Colors.white,
+                    height: 50,
+                    key: _key,
+                    outerColor:const Color(0xff324759) ,
+                    sliderButtonIconSize: 16,
+                    reversed: false,
+                    child: const Center(
+                        child: Text("SWIPE TO FINISH",
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700))),
+                    onSubmit: (){
+                        if(esti_status&&verifypay){
+
+                          completePayment().whenComplete(() {
+
+                            gt.Get.defaultDialog(
+                                content: Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        child: Image.asset(
+                                            'assets/images/greentick.png'),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50)),
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        "Thank you!!",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Successfully Completed",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                ));
+
+
+                          });
+                          CommonDialogs.showGenericToast( 'Lead successfully completed.', );
+                          Future.delayed(const Duration(milliseconds: 3000), () {
+
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+
+                          });
+
+                        }else{
+                          gt.Get.snackbar(
+                            "bikeze.in",
+                            " Please Fill all.",
+                            snackPosition: gt.SnackPosition.BOTTOM,
+                            backgroundColor: const Color(0xFF324A59),
+                            colorText: Colors.white,
+                            isDismissible: true,
+                            // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
+                            forwardAnimationCurve: Curves.easeOutBack,
+                          );
+                          _key.currentState?.reset();
+                        }
+                    },
+
+                ),
+                  ),
+                // Center(
+                //   child: SlidableButton(
+                //     width: double.infinity,
+                //     height: 50,
+                //     buttonWidth: 10.0,
+                //     key: _key,
+                //
+                //     border: Border.all(color: const Color(0xff324759)),
+                //     label: const Icon(Icons.arrow_forward),
+                //     buttonColor: Colors.white,
+                //     color: const Color(0xff324759),
+                //     child: const Center(
+                //         child: Text("SWIPE TO FINISH",
+                //             style: TextStyle(
+                //                 fontFamily: 'Poppins',
+                //                 color: Colors.white,
+                //                 fontSize: 15,
+                //                 fontWeight: FontWeight.w700))),
+                //     dismissible: true,
+                //     onChanged: (position) {
+                //       setState(() {
+                //         if (position == SlidableButtonPosition.right) {
+                //           if(esti_status&&verifypay){
+                //
+                //             completePayment().whenComplete(() {
+                //               gt.Get.defaultDialog(
+                //                   title: "",
+                //                   content: Container(
+                //                     child: Column(
+                //                       children: [
+                //                         Align(
+                //                           alignment: Alignment.topRight,
+                //                           child: TextButton(
+                //                             onPressed: () {
+                //                               Navigator.pop(context);
+                //                               gt.Get.back();
+                //                             },
+                //                             child: const Icon(Icons.close_rounded,size: 30,),
+                //                             style: ElevatedButton.styleFrom(
+                //                               onPrimary: Colors.black,
+                //                               primary: Colors.white54,
+                //                               shape: const CircleBorder(),
+                //                               padding: const EdgeInsets.all(5),
+                //                             ),
+                //                           ),
+                //                         ),
+                //                         Container(
+                //                           height: 200,
+                //                           width: 200,
+                //                           child: Image.asset(
+                //                               'assets/images/greentick.png'),
+                //                           decoration: BoxDecoration(
+                //                               borderRadius: BorderRadius.circular(50)),
+                //                         ),
+                //                         SizedBox(
+                //                           height: 15,
+                //                         ),
+                //                         Text(
+                //                           "Successfully Completed",
+                //                           style: TextStyle(
+                //                               fontSize: 20,
+                //                               fontFamily: 'Poppins',
+                //                               fontWeight: FontWeight.bold),
+                //                         )
+                //                       ],
+                //                     ),
+                //                   ));});
+                //             CommonDialogs.showGenericToast( 'Lead successfully completed.', );
+                //             Future.delayed(const Duration(milliseconds: 3000), () {
+                //
+                //               Navigator.pop(context);
+                //               Navigator.pop(context);
+                //
+                //             });
+                //
+                //           }else{
+                //             gt.Get.snackbar(
+                //               "bikeze.in",
+                //               " Please Fill all.",
+                //               snackPosition: gt.SnackPosition.BOTTOM,
+                //               backgroundColor: const Color(0xFF324A59),
+                //               colorText: Colors.white,
+                //               isDismissible: true,
+                //               // dismissDirection: gt.SnackDismissDirection.HORIZONTAL,
+                //               forwardAnimationCurve: Curves.easeOutBack,
+                //             );
+                //             _key.currentState?.reset();
+                //
+                //           }
+                //
+                //
+                //
+                //         }
+                //       });
+                //     },
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),

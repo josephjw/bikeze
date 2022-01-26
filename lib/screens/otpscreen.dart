@@ -277,18 +277,18 @@ class _OtpScreenState extends State<OtpScreen> {
                       const SizedBox(
                         height: 95,
                       ),
-                      const Text("    Verification",
+                      const Text("Verification",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 22,
                               color: Color(0xff181D2D),
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.bold)),
                       const SizedBox(height: 15),
-                      const Text('      Enter the OTP code we sent you',
+                      const Text('Enter the OTP code we sent you',
                           style: TextStyle(
                               color: Colors.grey,
                               fontFamily: 'Poppins',
-                              fontSize: 17))
+                              fontSize: 14))
                     ],
                   )),
             ),
@@ -347,34 +347,35 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
 
             const SizedBox(
-              height: 90,
+              height: 40,
             ),
             Row(children: [
-              const SizedBox(
-                width: 250,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (OTPPIN == null) {
-                    Get.snackbar(
-                      "bikeze",
-                      "Please Enter OTP",
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: const Color(0xFF324A59),
-                      colorText: Colors.white,
-                      isDismissible: true,
-                      // dismissDirection: SnackDismissDirection.HORIZONTAL,
-                      forwardAnimationCurve: Curves.easeOutBack,
-                    );
-                  } else if (OTPPIN != null) {
-                    otpVerify(OTPPIN!);
-                  }
-                },
-                child: _loading?CircularProgressIndicator(): Icon(Icons.arrow_forward),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff324759),
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(20),
+              Expanded(child: Container()),
+              Padding(
+                padding: const EdgeInsets.only(right:50.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (OTPPIN == null) {
+                      Get.snackbar(
+                        "bikeze",
+                        "Please Enter OTP",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: const Color(0xFF324A59),
+                        colorText: Colors.white,
+                        isDismissible: true,
+                        // dismissDirection: SnackDismissDirection.HORIZONTAL,
+                        forwardAnimationCurve: Curves.easeOutBack,
+                      );
+                    } else if (OTPPIN != null) {
+                      otpVerify(OTPPIN!);
+                    }
+                  },
+                  child: _loading?CircularProgressIndicator(): Icon(Icons.arrow_forward),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xff324759),
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(20),
+                  ),
                 ),
               )
             ])

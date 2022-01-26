@@ -89,8 +89,8 @@ class SplashScreenState extends State<SplashScreen> {
 
           Center(
             child: Container(
-              // height: 120,
-              width: 300,
+              height: 96,
+              width: 200,
               child: Image.asset(
                 "assets/images/logo.png",
                 fit: BoxFit.fill,

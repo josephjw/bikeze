@@ -311,10 +311,18 @@ bool _loading=true,_loading2=true;
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            content: Column(children: [
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               Row(children: [
                 Expanded(child: Container(),),
-                Image.asset("assets/images/close.png",height: 14,)
+                InkWell(
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Image.asset("assets/images/close.png",height: 25,))
               ],),
               Row(children: [
                 Icon(Icons.notifications,color: Colors.black,),
@@ -389,61 +397,25 @@ bool _loading=true,_loading2=true;
       body: Column(children: <Widget>[
         const SizedBox(height: 30),
         Container(
-          height: 100,
+          height: 70,
           width:double.infinity,
 
           //color: Colors.green,
           padding: EdgeInsets.symmetric(horizontal: 10),
           // width: MediaQuery.of(context).size.width,
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(width: 5),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => ProfileScreen());
-                  },
-                  child:  CircleAvatar(
-                    backgroundColor: Color(0xFF324A59),
-                    radius: 22,
-                    child: CircleAvatar(
-                      backgroundColor: Color(0xff324A59),
-                      radius: 19,
-                      foregroundImage: NetworkImage(
-                          profileData.image?? image
-                            // "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Hi,",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Poppins',
-                              fontSize: 20)),
-                      Text(
-                        userName ,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          fontSize: 16,
-                          color: Color(0xFF324A59),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
+              Image.asset("assets/images/logo.png",height: 40,),
+                Expanded(child: Container()),
 
 
                 Row(
                   children: [
 
                     Text(
-                      "OFFLINE" ,
+                      "OFF" ,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
@@ -479,7 +451,7 @@ bool _loading=true,_loading2=true;
                       ),
 
                     Text(
-                      "ONLINE" ,
+                      "ON" ,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
@@ -489,11 +461,25 @@ bool _loading=true,_loading2=true;
                     ),
                   ],
                 ),
-
+                const SizedBox(width: 15),
+                InkWell(
+                  onTap: () {
+                    Get.to(() => ProfileScreen());
+                  },
+                  child:  CircleAvatar(
+                    backgroundColor: Color(0xff324A59),
+                    radius: 19,
+                    foregroundImage: NetworkImage(
+                        profileData.image?? image
+                      // "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 5),
 
               ]),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 5),
         Expanded(
             child: Container(
           // height: 800,
@@ -513,33 +499,39 @@ bool _loading=true,_loading2=true;
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(height: 26),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child:  Text("LEAD MANAGEMENT",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: HexColor('#2d3238'),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Text("Today Leads : $leadcnt",
+                        Text("${now.day} ${DateFormat('MMM').format(DateTime(0, now.month)) .toString()} ${now.year.toString()}",
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 13,
                                 color: HexColor('#2d3238'),
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold))
+                                )),
+                        Row(
+                          children: [
+                            Expanded(
+                              child:  Text("HELLO, $userName",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: HexColor('#2d3238'),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Text("Today Leads : $leadcnt",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: HexColor('#2d3238'),
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+
 
                       ],
                     ),
-                    const SizedBox(height: 30),
-                     Text("${DateFormat('MMM').format(DateTime(0, now.month)) .toString()} ${now.year.toString()}",
-                        style: TextStyle(
-                            fontSize: 17,
-                            color: HexColor('#2d3238'),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold)),
+
                     // FutureBuilder(
                     //   future: leadNew(),
                     //   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -693,10 +685,12 @@ bool _loading=true,_loading2=true;
                                                 FlutterPhoneDirectCaller
                                                     .callNumber(number);
                                               },
-                                              child:  Text("CALL NOW",
+                                              child:  Text("Contact Customer ",
                                                   style: TextStyle(
                                                     color:Color(
                                                         0xff324759) ,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
                                                     fontFamily: 'Poppins',
                                                   )),
                                               style: ElevatedButton.styleFrom(
@@ -725,7 +719,7 @@ bool _loading=true,_loading2=true;
                     //  use
                      Text("Older Leads",
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 15,
                             fontFamily: 'Poppins',
                             color: HexColor('#2d3238'),
                             fontWeight: FontWeight.bold)),
@@ -870,13 +864,15 @@ bool _loading=true,_loading2=true;
                                           10, 2, 10, 1),
                                       child: SizedBox(
                                         height: 30,
-                                        width: 130,
+                                        width: 100,
                                         child: ElevatedButton(
                                           onPressed: () {},
                                           child: const Text(
-                                              "LEAD CLOSED",
+                                              "Completed Tasks",
                                               style: TextStyle(
                                                 color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
                                                 fontFamily: 'Poppins',
                                               )),
                                           style:
