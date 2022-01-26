@@ -2,8 +2,8 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:bikezee/preference/Constants.dart';
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (json == "Invalid No") {
         Get.snackbar(
-          "bikezee",
+          "bikeze",
           "Invalid number",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       Get.snackbar(
-        "bikezee.in",
+        "bikeze.in",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           if (mobNumber.text.isEmpty) {
                             Get.snackbar(
-                              "bikezee.in",
+                              "bikeze.in",
                               "Please Enter Mob Number",
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: const Color(0xFF324A59),
@@ -278,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.grey,
                               fontFamily: 'Poppins',
                               fontSize: 16)),
-                      Text("partner@bikezee.in",
+                      Text("partner@bikeze.in",
                           style: TextStyle(
                               color: Color(0xFF3F9AD8),
                               fontFamily: 'Poppins',

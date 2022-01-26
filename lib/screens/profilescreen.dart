@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:bikezee/models/profileresponse.dart';
-import 'package:bikezee/preference/Constants.dart';
-import 'package:bikezee/screens/privacyPolicyScreen.dart';
-import 'package:bikezee/theme/style.dart';
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/models/profileresponse.dart';
+import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/screens/privacyPolicyScreen.dart';
+import 'package:bikeze/theme/style.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

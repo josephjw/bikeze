@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:bikezee/preference/Constants.dart';
+import 'package:bikeze/preference/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -81,7 +81,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
     var map = new Map<String, String>();
 
     map['lead_id'] =  argumentData[0]["leadId"]?? "5" ;
-    map['assign'] =userid ;
+    map['assign'] =argumentData[2]["assign"] ;
     print("userid"+userid );
     _loading=false;
 
@@ -89,6 +89,7 @@ class _DetailScreenState extends State<VerifyPaymentScreen> {
     if (res.statusCode == 200) {
       print("status : ${res.statusCode}");
       var jsonResponse = res.body;
+      print("veri response"+jsonResponse);
 
       try{
       final json = jsonDecode(jsonResponse);

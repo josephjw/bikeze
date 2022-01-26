@@ -1,10 +1,10 @@
 
-import 'package:bikezee/models/drawer_item_model.dart';
-import 'package:bikezee/preference/Constants.dart';
-import 'package:bikezee/screens/privacyPolicyScreen.dart';
-import 'package:bikezee/screens/widget/custom_drawer_tile.dart';
-import 'package:bikezee/theme/style.dart';
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/models/drawer_item_model.dart';
+import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/screens/privacyPolicyScreen.dart';
+import 'package:bikeze/screens/widget/custom_drawer_tile.dart';
+import 'package:bikeze/theme/style.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -250,7 +250,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     Navigator.pop(context);
     Get.to(() => LoginScreen());
     Get.snackbar(
-      "bikezee.in",
+      "bikeze.in",
       "Successfully Signed Out",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: const Color(0xFF324A59),

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:bikezee/preference/Constants.dart';
-import 'package:bikezee/preference/shared_preference_helper.dart';
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/preference/shared_preference_helper.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,7 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
       if (json == "Invalid No") {
         Get.snackbar(
-          "bikezee",
+          "bikeze",
           "Invalid number",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // }
     } else {
       Get.snackbar(
-        "bikezee.in",
+        "bikeze.in",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -139,7 +139,7 @@ class _OtpScreenState extends State<OtpScreen> {
       print("status code : ${res.statusCode}");
       if (json == "Invalid OTP") {
         Get.snackbar(
-          "bikezee.in",
+          "bikeze.in",
           " Invalid OTP",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -158,7 +158,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
         Get.off(() => HomeScreen());
         Get.snackbar(
-          "bikezee.in",
+          "bikeze.in",
           "Successfully Signed in",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -170,7 +170,7 @@ class _OtpScreenState extends State<OtpScreen> {
       }
     } else {
       Get.snackbar(
-        "bikezee.in",
+        "bikeze.in",
         "Invalid OTP",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -357,7 +357,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 onPressed: () {
                   if (OTPPIN == null) {
                     Get.snackbar(
-                      "bikezee",
+                      "bikeze",
                       "Please Enter OTP",
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: const Color(0xFF324A59),

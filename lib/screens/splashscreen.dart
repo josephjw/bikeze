@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -81,7 +81,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -96,7 +96,7 @@ class SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.fill,
               ),
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -108,7 +108,7 @@ class SplashScreenState extends State<SplashScreen> {
           //   child: Column(
           //     children: [
           //       const Text(
-          //         "bikezee.IN",
+          //         "bikeze.IN",
           //         style: TextStyle(
           //             color: Colors.white,
           //             fontSize: 30,

@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
-import 'package:bikezee/permissions/permission_utils.dart';
-import 'package:bikezee/preference/Constants.dart';
-import 'package:bikezee/screens/verifyPaymentScreen.dart';
-import 'package:bikezee/theme/style.dart';
-import 'package:bikezee/widgets/dialog.dart';
+import 'package:bikeze/screens/verifyPaymentScreen.dart';
+import 'package:bikeze/permissions/permission_utils.dart';
+import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/screens/verifyPaymentScreen.dart';
+import 'package:bikeze/theme/style.dart';
+import 'package:bikeze/widgets/dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -152,7 +153,7 @@ if(photo!=null){
   }
 
   Future<void> completePayment() async {
-    String url = "https://manyatechnosys.com/bikezee/complete_lead.php";
+    String url = "https://manyatechnosys.com/bikeze/complete_lead.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -172,7 +173,7 @@ if(photo!=null){
   }
 
   Future<void> estimationPrice() async {
-    String url = "https://manyatechnosys.com/bikezee/estimation_price.php";
+    String url = "https://manyatechnosys.com/bikeze/estimation_price.php";
     var map = new Map<String, String>();
 
     map['lead_id'] = argumentData[6]['leadId'] ?? "4" ;
@@ -621,7 +622,7 @@ if(photo!=null){
 
                            Icon(
                             FontAwesomeIcons.solidCheckCircle,
-                            color: upload  ?Color(0xff324A59):HexColor('#EE7D59'),
+                            color: upload  ?HexColor('#EE7D59'):Colors.grey,
                           ),
                           const SizedBox(
                             width: 20,
@@ -775,7 +776,7 @@ if(photo!=null){
                            Icon(
                             FontAwesomeIcons.fileInvoice,
                             size: 35,
-                              color: !esti_status ?HexColor('#EE7D59').withOpacity(0.5): Color(0xFFAAAAAA)
+                              color: !esti_status ?HexColor('#EE7D59').withOpacity(0.5):HexColor('#EE7D59')
                           ),
                           const SizedBox(
                             width: 10,
@@ -811,7 +812,7 @@ if(photo!=null){
 
                           Icon(
                               FontAwesomeIcons.solidCheckCircle,
-                              color: Color(0xff324A59)
+                              color: HexColor('#EE7D59')
                           ): Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
                           const SizedBox(width: 20),
 
@@ -835,13 +836,13 @@ if(photo!=null){
 
                   gt.Get.to(() => VerifyPaymentScreen(), arguments: [
                     {'leadId': argumentData[6]['leadId']},
-                    {'estimatedPrice': estprice}
-
+                    {'estimatedPrice': estprice},
+                    {'assign': argumentData[10]['assign']}
 
                   ]);
                 }else{
                     gt.Get.snackbar(
-                      "bikezee.in",
+                      "bikeze.in",
                       " Please Provide Estimation price.",
                       snackPosition: gt.SnackPosition.BOTTOM,
                       backgroundColor: const Color(0xFF324A59),
@@ -898,9 +899,10 @@ if(photo!=null){
                             ),
                           ),
                           verifypay ?
+
                           Icon(
                               FontAwesomeIcons.solidCheckCircle,
-                              color: Color(0xff324A59)
+                              color: HexColor('#EE7D59')
                           ):
                           Icon(FontAwesomeIcons.solidCheckCircle,color: Colors.grey,),
                           const SizedBox(width: 20),
@@ -930,11 +932,16 @@ if(photo!=null){
 
                         completePayment().whenComplete(() {
                           gt.Get.defaultDialog(
-                              title: "Lead Completed",
                               content: Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    Align(alignment: Alignment.topCenter,
+                                    child: Text("Lead Completed",
+                                      style:TextStyle( fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                      fontSize: 15,),)),
+
                                     Align(
                                       alignment: Alignment.topRight,
                                       child: TextButton(
@@ -982,7 +989,7 @@ if(photo!=null){
 
                       }else{
                         gt.Get.snackbar(
-                          "bikezee.in",
+                          "bikeze.in",
                           " Please Fill all.",
                           snackPosition: gt.SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF324A59),
@@ -1074,7 +1081,7 @@ if(photo!=null){
               //
               //           }else{
               //             gt.Get.snackbar(
-              //               "bikezee.in",
+              //               "bikeze.in",
               //               " Please Fill all.",
               //               snackPosition: gt.SnackPosition.BOTTOM,
               //               backgroundColor: const Color(0xFF324A59),
@@ -1150,7 +1157,7 @@ if(photo!=null){
 
     try {
       String path =
-          "https://manyatechnosys.com/bikezee/checkin_mimage.php";
+          "https://manyatechnosys.com/bikeze/checkin_mimage.php";
 
       print("upload path: $path");
 
