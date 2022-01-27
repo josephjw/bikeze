@@ -618,35 +618,44 @@ class ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(width: 12),
-                      TextButton(
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.info_outlined,
-                          color: Color(0xff324A59),
-                          size: 20,
+                  InkWell(
+                    onTap: (){
+                      Get.to(() => PrivacyPolScreen(),arguments: {
+                        {'type': "aboutus"},
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 12),
+                        TextButton(
+                          onPressed: () {
+
+                          },
+                          child: Icon(
+                            Icons.info_outlined,
+                            color: Color(0xff324A59),
+                            size: 20,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            onPrimary: Color(0xff324A59),
+                            primary: Colors.white54,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(5),
+                          ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          onPrimary: Color(0xff324A59),
-                          primary: Colors.white54,
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(5),
+                        SizedBox(
+                          width: 5,
                         ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "About Us",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff324A59)),
-                      ),
-                    ],
+                        Text(
+                          "About Us",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff324A59)),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -759,7 +768,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     sharedPreferences.clear();
     Navigator.pop(context);
     Navigator.pop(context);
-    Get.to(() => LoginScreen());
+    Get.off(() => LoginScreen());
     Get.snackbar(
       "Bikezo.in",
       "Successfully Signed Out",

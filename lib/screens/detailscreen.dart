@@ -932,6 +932,7 @@ if(photo!=null){
                           completePayment().whenComplete(() {
 
                             gt.Get.defaultDialog(
+                              title: "",
                                 content: Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

@@ -59,7 +59,7 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
   }
 
   Future<void> paymentVerify() async {
-    String url = argumentData[0]["type"]=="terms"?"https://manyatechnosys.com/bikeze/terms_condtions.php":"https://manyatechnosys.com/bikeze/privacy_policy.php";
+    String url = argumentData[0]["type"]=="aboutus"?"https://manyatechnosys.com/bikeze/aboutus.php":argumentData[0]["type"]=="terms"?"https://manyatechnosys.com/bikeze/terms_condtions.php":"https://manyatechnosys.com/bikeze/privacy_policy.php";
     var res = await http.Client().post(Uri.parse(url));
     if (res.statusCode == 200) {
       print("status : ${res.statusCode}");
