@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // }
     } else {
       Get.snackbar(
-        "bikeze.in",
+        "bikeze",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -139,7 +139,7 @@ class _OtpScreenState extends State<OtpScreen> {
       print("status code : ${res.statusCode}");
       if (json == "Invalid OTP") {
         Get.snackbar(
-          "bikeze.in",
+          "bikeze",
           " Invalid OTP",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -158,7 +158,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
         Get.off(() => HomeScreen());
         Get.snackbar(
-          "bikeze.in",
+          "bikeze",
           "Successfully Signed in",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF324A59),
@@ -170,7 +170,7 @@ class _OtpScreenState extends State<OtpScreen> {
       }
     } else {
       Get.snackbar(
-        "bikeze.in",
+        "bikeze",
         "Invalid OTP",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),

@@ -13,12 +13,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class PrivacyPolScreen extends StatefulWidget {
+  final String type;
+
+  const PrivacyPolScreen({Key? key, this.type="terms"}) : super(key: key);
   @override
   _DetailScreenState createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<PrivacyPolScreen> {
   dynamic argumentData = Get.arguments;
+  bool _loading =false;
 
   final ImagePicker picker = ImagePicker();
 
@@ -27,25 +31,10 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
   void initState() {
     super.initState();
 
-    getProfile();
     paymentVerify();
   }
   String userName = " ",userid='';
 
-  Future getProfile() async {
-    final SharedPreferences sharedPreferences =
-    await SharedPreferences.getInstance();
-
-    String? name = sharedPreferences.getString(Preferences.user_name);
-    String? id = sharedPreferences.getString(Preferences.user_id);
-
-    // print(obtainedNumber);
-    setState(() {
-
-      userName= name!;
-      userid=id!;
-    });
-  }
  String policy ="At BikeDekho, we value our customers and are committed to protecting your privacy, as well as safeguarding the information we receive and maintain about you. We do not sell information about you to others. We only share it as expressly allowed by law. Consequently, you do not need to notify us not to share information about you, because we have chosen to limit this for you. This Notice will help you understand what information we collect, how we use it, and the ways we maintain your privacy and the security of personal information about you.";
 
   getImageFromGallery() async {
@@ -59,14 +48,17 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
   }
 
   Future<void> paymentVerify() async {
-    String url = argumentData[0]["type"]=="aboutus"?"https://manyatechnosys.com/bikeze/aboutus.php":argumentData[0]["type"]=="terms"?"https://manyatechnosys.com/bikeze/terms_condtions.php":"https://manyatechnosys.com/bikeze/privacy_policy.php";
+    setState(() {
+      _loading=true;
+    });
+    String url = widget.type=="aboutus"?"https://manyatechnosys.com/bikeze/aboutus.php":widget.type=="terms"?"https://manyatechnosys.com/bikeze/terms_condtions.php":"https://manyatechnosys.com/bikeze/privacy_policy.php";
     var res = await http.Client().post(Uri.parse(url));
     if (res.statusCode == 200) {
       print("status : ${res.statusCode}");
       var jsonResponse = res.body;
       final json = jsonDecode(jsonResponse);
       setState(() {
-        policy=json["description"];
+        policy=json[0]["description"];
 
       });
       print(jsonResponse);
@@ -74,6 +66,9 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
     } else {
       throw Exception('failed to load data');
     }
+    setState(() {
+      _loading=false;
+    });
   }
 
   @override
@@ -116,7 +111,7 @@ class _DetailScreenState extends State<PrivacyPolScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Wrap(
+                   _loading?Center(child: CircularProgressIndicator()): Wrap(
                       children:[ Text(
                         policy,
                         style: TextStyle(

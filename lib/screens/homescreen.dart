@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bikeze/models/leadresponse.dart';
 import 'package:bikeze/models/profileresponse.dart';
 import 'package:bikeze/preference/Constants.dart';
@@ -40,14 +41,19 @@ bool _loading=true,_loading2=true;
   void initState() {
     super.initState();
     getProfile().whenComplete(() {
-      profileData = fetchProfile(mobile) as ProfileResponse;
+      fetchProfile(mobile).whenComplete(() =>       getDuty());
+
       lead_count();
     });
+
     _firebaseMessaging= FirebaseMessaging.instance;
     firebaseCloudMessaging_Listeners();
     leadOld();
     timer = Timer.periodic(Duration(seconds: 3), (Timer t) { leadNew();    lead_count();});
-    timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) { leadOld(); profileData = fetchProfile(mobile) as ProfileResponse;});
+    timer2 = Timer.periodic(Duration(seconds: 7), (Timer t) {
+      leadOld();
+      fetchProfile(mobile);
+   });
 
     // initConnectivity();
   }
@@ -165,6 +171,27 @@ bool _loading=true,_loading2=true;
     }
   }
 
+  Future<void> getDuty() async {
+    String url = "https://manyatechnosys.com/bikeze/getonline_offline.php";
+    var map = new Map<String, String>();
+
+    map['p_id'] = userid;
+    var res = await http.Client().post(Uri.parse(url),body: map);
+    if (res.statusCode == 200) {
+      // print("status : ${res.statusCode}");
+      var jsonResponse = res.body;
+      final json = jsonDecode(jsonResponse);
+      print("debug online");
+      // print("https://manyatechnosys.com/bikezo/getonline_offline.php"+json);
+      setState(() {
+        toggle=json[0]["p_status"]=='1';
+      });
+
+    } else {
+      throw Exception('failed to load data');
+    }
+  }
+
   Future<void> lead_count() async {
     String url = "https://manyatechnosys.com/bikeze/lead_count.php";
     var map = new Map<String, String>();
@@ -201,7 +228,7 @@ bool _loading=true,_loading2=true;
     String? id = sharedPreferences.getString(Preferences.user_id);
     String? image = sharedPreferences.getString(Preferences.user_image);
     String? mob = sharedPreferences.getString(Preferences.mobile);
-    bool? status = sharedPreferences.getBool(Preferences.status);
+    // bool? status = sharedPreferences.getBool(Preferences.status);
 
     // print(obtainedNumber);
     setState(() {
@@ -210,7 +237,7 @@ bool _loading=true,_loading2=true;
       userid=id!;
       this.image=image!;
       mobile=mob!;
-      toggle=status!;
+      // toggle=status??false;
     });
   }
 
@@ -259,6 +286,9 @@ bool _loading=true,_loading2=true;
       List<ProfileResponse> profile = json.map<ProfileResponse>((json) {
         return ProfileResponse.fromJson(json);
       }).toList();
+      setState(() {
+        profileData=profile[0];
+      });
       return profile[0];
     } else {
       throw Exception("failed to load data");
@@ -305,9 +335,14 @@ bool _loading=true,_loading2=true;
               // TODO add a proper drawable resource to android, for now using
               //      one that already exists in example app.
               icon: 'launch_background',
+              playSound: true,
+
             ),
           ),
         );
+        AudioCache player = new AudioCache();
+        const alarmAudioPath = "raw/notification_sound.mp3";
+        player.play(alarmAudioPath,);
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -336,7 +371,8 @@ bool _loading=true,_loading2=true;
               FlatButton(
                 child: Text('View leads >'),
                 onPressed: (){
-
+                  player.clearAll();
+                  player.play("");
                   Navigator.of(context).pop();
                   // Get.to(() => DetailScreen(), arguments: [
                   //   {'name': _leads[0].user_name},
@@ -439,7 +475,7 @@ bool _loading=true,_loading2=true;
                               else{
                                 CommonDialogs.showGenericToast( 'You are online now.', );
                               }
-                              sharedPreferences.setBool(Preferences.status, toggle);
+                              // sharedPreferences.setBool(Preferences.status, toggle);
                             }else{
                               // toggle=!toggle;
                               CommonDialogs.showGenericToast( 'Please completed assigned task..', );
@@ -470,7 +506,7 @@ bool _loading=true,_loading2=true;
                     backgroundColor: Color(0xff324A59),
                     radius: 19,
                     foregroundImage: NetworkImage(
-                        profileData.image?? image
+                        profileData.image ?? image
                       // "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.designindaba.com%2Fsites%2Fdefault%2Ffiles%2Fvocab%2Ftopics%2F8%2Fgraphic-design-illustration-Image%2520Credite-%2520Leigh%2520Le%2520Roux%2520.jpg&f=1&nofb=1"
                     ),
                   ),
@@ -519,7 +555,7 @@ bool _loading=true,_loading2=true;
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.bold)),
                             ),
-                            Text("Today Leads : $leadcnt",
+                            Text("Today Points : $leadcnt",
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: HexColor('#2d3238'),
@@ -561,7 +597,7 @@ bool _loading=true,_loading2=true;
                         child: Center(child: CircularProgressIndicator())):
                _leads.length==0?Center(
                  child: Text(
-                     " No Leads are Found.",
+                     " Today No Leads are Found.",
                      style: TextStyle(
                        fontSize: 12,
                        color: HexColor('#2d3238'),
@@ -591,9 +627,11 @@ bool _loading=true,_loading2=true;
                                 {'date': _leads[index].booking_date},
                                 {'ebool': _leads[index].est_price_boolval},
                                 {'ibool': _leads[index].image_boolval},
-                                {'assign': _leads[index].assign}
+                                {'assign': _leads[index].assign},
+                                {'aibool': _leads[index].image_boolval}
 
-    ]);
+
+                              ]);
                             },
                             child: Container(
                               height: 110,
@@ -726,7 +764,9 @@ bool _loading=true,_loading2=true;
                             fontFamily: 'Poppins',
                             color: HexColor('#2d3238'),
                             fontWeight: FontWeight.bold)),
-
+                    SizedBox(
+                      height: 10,
+                    ),
               //     if (snapshot.hasError)
               //   return Text('Error: ${snapshot.error}');
               // else
@@ -737,10 +777,10 @@ bool _loading=true,_loading2=true;
 
                     _oleads.length==0?Center(
                       child: Text(
-                          " No Leads are Found.",
+                          " Today No Leads are Found.",
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.white,
+                            color: HexColor('#2d3238'),
                             fontFamily: 'Poppins',
                           )),
                     ):
@@ -845,12 +885,12 @@ bool _loading=true,_loading2=true;
                                 children: [
                                   Container(
                                     padding: EdgeInsets.fromLTRB(
-                                        0, 5, 0, 0),
-                                    height: 25,
+                                        15, 5, 0, 0),
+                                    // height: 35,
                                     width: 140,
                                     //  color: Colors.yellow,
                                     child: Text(
-                                      "   ${_oleads[index].vehicle}",
+                                      "${_oleads[index].vehicle}",
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: 'Poppins',

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bikeze/models/profileresponse.dart';
 import 'package:bikeze/preference/Constants.dart';
+import 'package:bikeze/screens/fullscreenImage.dart';
 import 'package:bikeze/screens/privacyPolicyScreen.dart';
 import 'package:bikeze/theme/style.dart';
 import 'package:bikeze/widgets/dialog.dart';
@@ -128,6 +129,8 @@ class ProfileScreenState extends State<ProfileScreen> {
       throw Exception("failed to load data");
     }
   }
+
+
 
   Future updateProfile(String name, String address) async {
     String url = "https://manyatechnosys.com/bikeze/editprofile.php";
@@ -546,7 +549,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => PrivacyPolScreen(),arguments: {
+                      Get.to(() => PrivacyPolScreen(type: "terms",),arguments: {
                         {'type': "terms"},
                       });
                     },
@@ -583,7 +586,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ),
                   InkWell(
                     onTap: (){
-                      Get.to(() => PrivacyPolScreen(),arguments: {
+                      Get.to(() => PrivacyPolScreen(type: "policy"),arguments: {
                         {'type': "policy"},
                       });
                     },
@@ -620,7 +623,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ),
                   InkWell(
                     onTap: (){
-                      Get.to(() => PrivacyPolScreen(),arguments: {
+                      Get.to(() => PrivacyPolScreen(type: "aboutus",),arguments: {
                         {'type': "aboutus"},
                       });
                     },
@@ -661,31 +664,30 @@ class ProfileScreenState extends State<ProfileScreen> {
                     height: 10,
                   ),
 
-                  Container(
-                    height: 150,
-                    width: 170,
-                    //color: Colors.yellow,
-                    child: Image.network(qrimage ??
-                        "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1"),
+                  InkWell(
+                    onTap: (){
+                      Get.to(()=>FullscreenImage(qrimage: qrimage,));
+                    },
+                    child: Container(
+                      height: 150,
+                      width: 170,
+                      //color: Colors.yellow,
+                      child: Image.network(qrimage ??
+                          "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2%2FQR-Code-PNG-Image-HD.png&f=1&nofb=1"),
+                    ),
                   ),
 
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Scan & Pay now at",
+                    "Scan & Pay now at BIKEZE",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
                         fontSize: 12),
                   ),
-                  Text(
-                    "BIKEZO.IN Private Limited",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
-                        fontSize: 12),
-                  ),
+
                   SizedBox(
                     height: 10,
                   ),

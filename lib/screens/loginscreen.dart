@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       Get.snackbar(
-        "bikeze.in",
+        "bikeze",
         "Invalid Number",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF324A59),
@@ -232,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           if (mobNumber.text.isEmpty) {
                             Get.snackbar(
-                              "bikeze.in",
+                              "bikeze",
                               "Please Enter Mob Number",
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: const Color(0xFF324A59),
@@ -285,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 15)),
-                      Text("partner@bikeze.in",
+                      Text("bikezehelp@gmail.com",
                           style: TextStyle(
                               color: Colors.red,
                               fontFamily: 'Poppins',

@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:bikeze/screens/fullscreenImage.dart';
 import 'package:bikeze/screens/verifyPaymentScreen.dart';
 import 'package:bikeze/permissions/permission_utils.dart';
 import 'package:bikeze/preference/Constants.dart';
@@ -232,8 +234,35 @@ if(photo!=null){
 
     }
   }
+  List<File> _after =[];
+
+  List<String> imags=[];
+  Future<void> getimage() async {
+    String url = "https://manyatechnosys.com/bikeze/checkinview_image.php";
+    var map = new Map<String, String>();
+
+    map['lead_id'] = argumentData[6]['leadId'];
+    var res = await http.Client().post(Uri.parse(url),body: map);
+    if (res.statusCode == 200) {
+      // print("status : ${res.statusCode}");
+      var jsonResponse = res.body;
+      final json = jsonDecode(jsonResponse);
+      // print("https://manyatechnosys.com/bikezo/getonline_offline.php"+jsonResponse);
+      setState(() {
+        // imags= json['images'] as List<String>;
+
+        for(int i =0;i<json['images'].length;i++){
+          imags.add(json['images'][i]);
+          print("images ${json['images'][i]}");
+        }
 
 
+      });
+
+    } else {
+      throw Exception('failed to load data');
+    }
+  }
 
 
   @override
@@ -537,40 +566,78 @@ if(photo!=null){
                 InkWell(
                   onTap: () {
     if( !upload){
+      gt.Get.bottomSheet(
+          SizedBox(
+            height: 150,
+            child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        getImagefromCamera();
+                      },
+                      icon: const Icon(
+                        Icons.camera,
+                      ),
+                      label: const Text("Camera"),
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color(0xff324A59)),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        getImageFromGallery();
+                        // loadAssets();
+                      },
+                      icon: const Icon(
+                        Icons.image,
+                      ),
+                      label: const Text("Image"),
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color(
+                              0xff324A59) //elevated btton background color
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+          enableDrag: true,
+          backgroundColor: Colors.white
+      );
 
-    gt.Get.defaultDialog(
-                        title: "",
-                        content: Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                getImagefromCamera();
-                              },
-                              icon: const Icon(
-                                Icons.camera,
-                              ),
-                              label: const Text("Camera"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xff324A59)),
-                            ),
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                getImageFromGallery();
-                                // loadAssets();
-                              },
-                              icon: const Icon(
-                                Icons.image,
-                              ),
-                              label: const Text("Image"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: const Color(
-                                      0xff324A59) //elevated btton background color
-                                  ),
-                            ),
-                          ],
-                        )));
+    // gt.Get.defaultDialog(
+    //                     title: "",
+    //                     content: Center(
+    //                         child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                       children: [
+    //                         ElevatedButton.icon(
+    //                           onPressed: () {
+    //                             getImagefromCamera();
+    //                           },
+    //                           icon: const Icon(
+    //                             Icons.camera,
+    //                           ),
+    //                           label: const Text("Camera"),
+    //                           style: ElevatedButton.styleFrom(
+    //                               primary: const Color(0xff324A59)),
+    //                         ),
+    //                         ElevatedButton.icon(
+    //                           onPressed: () {
+    //                             getImageFromGallery();
+    //                             // loadAssets();
+    //                           },
+    //                           icon: const Icon(
+    //                             Icons.image,
+    //                           ),
+    //                           label: const Text("Image"),
+    //                           style: ElevatedButton.styleFrom(
+    //                               primary: const Color(
+    //                                   0xff324A59) //elevated btton background color
+    //                               ),
+    //                         ),
+    //                       ],
+    //                     )));
     }
                   },
                   child: Center(
@@ -819,6 +886,74 @@ if(photo!=null){
                         )),
                   ),
                 ),
+
+                upload?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Check-in Images :",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Poppins',
+                          fontSize: 14),
+                    ),
+
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.only(left :20,top :12),
+                      child: ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) =>
+                              SizedBox(height: 10,width: 20,),
+                          shrinkWrap: true,
+                          // reverse: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+
+                          itemCount: _after.length==0? imags.length: _after.length,
+                          itemBuilder: (BuildContext context, index) {
+                            // if (      _oleads[index].booking_date != date
+                            // ) {
+                            return Center(
+                                child: InkWell(
+                                  onTap: () {
+
+                                    Get.to(()=>FullscreenImage(fileimage:_after.isNotEmpty? _after[index]?.path:null,qrimage:imags.isNotEmpty? imags[index]:null,));
+                                    // Get.to(() => DetailScreen(), arguments: [
+                                    //   {'name': _oleads[index].user_name},
+                                    //   {'package': _oleads[index].package},
+                                    //   {'vehicle': _oleads[index].vehicle},
+                                    //   {'remarks': _oleads[index].remarks},
+                                    //   {'location': _oleads[index].location},
+                                    //   {'mobile': _oleads[index].mobile_no},
+                                    //   {'leadId': _oleads[index].lead_id},
+                                    //   {'date': _oleads[index].booking_date},
+                                    //   {'ebool': _oleads[index].est_price_boolval},
+                                    //   {'ibool': _oleads[index].image_boolval}
+                                    // ]);
+                                  },
+                                  child: Container(
+                                    // height: 100,
+                                    //   color: Colors.white,
+                                    decoration: BoxDecoration(
+                                        color:  Color(0xFF324A59),
+                                        borderRadius: BorderRadius.circular(12)),
+                                    child:_after.length==0?Image.network(imags[index],width: 50,):  Image.file(_after[index],width: 50,height: 100,
+                                    ),
+                                  ),
+                                ));
+                            // }
+                            // else {
+                            //   return SizedBox.shrink();
+                            // }
+                          }),
+                    )
+
+                  ],)
+
+
+                    :Container(),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -826,7 +961,7 @@ if(photo!=null){
                   onTap: () async{
                     SharedPreferences sharedPreferences =
                         await SharedPreferences.getInstance();
-                    if(esti_status){
+                    if(esti_status&upload){
                       // setState(() {
                       //   verifypay=true;
                       //
@@ -841,7 +976,7 @@ if(photo!=null){
                     ]);
                   }else{
                       gt.Get.snackbar(
-                        "bikeze.in",
+                        "bikeze",
                         " Please Provide Estimation price.",
                         snackPosition: gt.SnackPosition.BOTTOM,
                         backgroundColor: const Color(0xFF324A59),
@@ -979,7 +1114,7 @@ if(photo!=null){
 
                         }else{
                           gt.Get.snackbar(
-                            "bikeze.in",
+                            "bikeze",
                             " Please Fill all.",
                             snackPosition: gt.SnackPosition.BOTTOM,
                             backgroundColor: const Color(0xFF324A59),
@@ -1071,7 +1206,7 @@ if(photo!=null){
                 //
                 //           }else{
                 //             gt.Get.snackbar(
-                //               "bikeze.in",
+                //               "bikeze",
                 //               " Please Fill all.",
                 //               snackPosition: gt.SnackPosition.BOTTOM,
                 //               backgroundColor: const Color(0xFF324A59),
@@ -1092,7 +1227,7 @@ if(photo!=null){
                 //   ),
                 // ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
               ],
             ),
@@ -1128,14 +1263,17 @@ if(photo!=null){
     List<MultipartFile> multipart = [];
     late FormData formData;
 //listImage is your list assets.
+    List<File> _afterImg = [];
 
     if(filee==null){
       for (int i = 0; i < listfile.length; i++) {
         multipart.add(await MultipartFile.fromFile(listfile[i].path));
+        _afterImg.add(File(listfile[i].path));
+
       }
        formData = new FormData.fromMap({
         "lead_id": argumentData[6]['leadId'] ?? "4",
-        "image":multipart,
+        "image[]":multipart,
       });
     }else{
        formData = new FormData.fromMap({
@@ -1143,6 +1281,8 @@ if(photo!=null){
         "image": await MultipartFile.fromFile(filee.path),
 
       });
+       _afterImg.add(File(filee.path));
+
     }
 
 
@@ -1176,6 +1316,7 @@ if(photo!=null){
         CommonDialogs.showGenericToast( 'Uploaded successfully', );
         setState(() {
           upload=true;
+          _after=_afterImg;
         });
         sharedPreferences.setBool(argumentData[6]['leadId']+"upload", true);
         loadder.close();

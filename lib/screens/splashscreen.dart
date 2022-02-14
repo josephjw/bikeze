@@ -90,7 +90,7 @@ class SplashScreenState extends State<SplashScreen> {
           Center(
             child: Container(
               height: 96,
-              width: 200,
+              // width: 200,
               child: Image.asset(
                 "assets/images/logo.png",
                 fit: BoxFit.fill,
@@ -108,7 +108,7 @@ class SplashScreenState extends State<SplashScreen> {
           //   child: Column(
           //     children: [
           //       const Text(
-          //         "bikeze.IN",
+          //         "bikeze",
           //         style: TextStyle(
           //             color: Colors.white,
           //             fontSize: 30,
